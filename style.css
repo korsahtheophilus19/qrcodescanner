@@ -1,0 +1,896 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* root styling*/
+:root{
+    --fontWeight8: 800; 
+    --fontWeight6: 600; 
+    --primaryColor: #E9ECFB;
+    --secondaryColor: #21242A;
+    --sColorTrans: rgba(33, 36, 42, 0.5);
+    --privacyBg: #0A2F30;
+    --thinWhite:#C0C0C0;
+    --highlight: coral;
+    --shadowColor: 
+    --boxShadow: 0px 0px 10px var(--shadowColor);
+    --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
+
+    --borderRadius: 5px ;
+    --bRadiusHalf: 50%;
+    --padding: 1rem;
+    --paddingHalf: 0.5rem;
+    --marginHalf: 0.5rem;
+
+    --formInputColor:#f0f8ff;
+    --darkFormInputColor: #353840;
+    --thinBlack:#41444D;
+    
+}
+li, a{
+    list-style: none;
+    text-decoration: cente;
+}
+
+/* special class and style */
+
+/* Hide the answers by default */
+.faqAnswer {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding-left: 10px;
+    transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, margin 0.5s ease;
+}
+
+/* This class will be added/removed by JavaScript */
+.faqAnswer.show {
+    max-height: 300px;
+    margin-top: 10px;
+    transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, margin 0.5s ease;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.modal{
+    width: 280px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    border: 1px solid red;
+
+    animation-name: showUp;
+    animation-timing-function: 1;
+    animation-duration: 0.3s;
+    animation-delay: 0.3s;
+    
+}
+
+/* header section */
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--padding);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.141);
+}
+
+header nav ul{
+    display: flex;
+    gap: 1rem;
+}
+
+header nav ul li{
+    list-style: none;
+}
+
+/* hero / landing  */
+.landingHero{
+    text-align: center;
+    background-color: aliceblue;
+    padding: 3rem 1rem 3rem 1rem;
+    
+}
+
+.capContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: var(--padding);
+    box-shadow: 0px 0px 10px  rgba(0, 0, 0, 0.092);
+    width: 300px;
+    margin: auto;
+    border-radius: var(--borderRadius);
+    color:black
+}
+
+.capContainer .capture{
+    text-align: center;
+    place-content: center;
+    width: clamp(280px 100vw 420px);
+    height: 580px;
+    border-radius: var(--borderRadius);
+    font-weight: var(--fontWeight6);
+    overflow: hidden;
+    border: 1px solid red;
+}
+
+/* this is for video */
+/* Make the video fill the container cleanly */
+#webcam {
+    width: 100%;
+    height: 50%;
+    object-fit: cover; /* Crops video to fill container without stretching */
+    transform: scaleX(-1); /* Mirrors the stream for a natural selfie/viewing experience */
+}
+  
+.capContainer .capElements{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.capContainer div .iBtn{
+    cursor: pointer;   
+}
+
+.capContainer div .flashlight{
+    cursor: pointer; 
+}
+
+.featureContainer{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    padding: var(--padding);
+}
+
+.featureContainer .featureInner{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+
+.featureContainer .featureInner .featureEle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    
+}
+
+.featureContainer .featureInner .featureEle .item{
+    padding: 2rem var(--paddingHalf);
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--thinWhite);
+    background-color: var(--primaryColor);
+
+}
+
+.featureContainer .featureInner .featureEle .item div{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap:1rem;
+}
+
+/* how to use the scanner section */
+.howContainer{
+    padding: 1rem;
+    background-color: aliceblue;
+}
+
+.howContainer .howInner{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.howContainer .howInner .howEle{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.howContainer .howInner .howEle div {
+   margin-top:var(--marginHalf);
+   gap: 1rem;
+}
+
+.howContainer .howInner .howEle div .howTitle{
+   display: flex;
+   gap: 10px;
+   align-items: center;
+   margin-bottom: var(--marginHalf);
+}
+
+.howContainer .howInner .howEle div .howTitle h3{
+    font-size: 1.4rem;
+}
+
+/* this is for scan from qr code image  */
+.howContainer figure{
+    text-align: center;
+    background-color: var(--primaryColor);
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--thinWhite);
+    font-weight: var(--fontWeight6);
+}
+
+.howContainer figure {
+    text-align: center;
+}
+
+/*  Question section within the index */
+.queContainer{
+    padding: var(--paddingHalf);
+}
+
+.queContainer .questions{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.queContainer .queItem{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primaryColor);
+    padding: 1rem 5px;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--thinWhite);
+}
+
+.queContainer .queItem h3{
+    cursor: pointer;
+}
+
+/* Contact section within the contact page */
+.contactHero{
+    padding: var(--padding);
+    line-height: 30px;
+}
+
+.formHeading {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    place-content: center;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* form section within the contact page */
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: var(--padding);
+    width: 100%
+}
+
+.formContainer form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formContainer form .formInner{
+    display: flex;
+    gap: .2rem;
+}
+
+
+.formContainer input,
+.formContainer textarea{
+    width: 100%;
+    border: 1px solid var(--sColorTrans);
+    offset: none;
+    padding: var(--paddingHalf);
+    border-radius: var(--borderRadius);
+    background-color: var(--formInputColor);
+    font-weight: var(--fontWeight6);
+    font-size: 1rem;
+
+}
+
+.formContainer textarea{
+    font-weight: var(--fontWeight6);
+
+}
+
+.formContainer textarea:focus,
+.formContainer input:focus{
+    border: 1px solid;
+    outline: none;
+    
+}
+
+.formContainer .submitBtn{
+    background-color: var(--highlight);
+    transition: 0.5s background-color;
+}
+
+.formContainer .submitBtn:hover{
+    background-color: var(--darkFormInputColor);
+    color: var(--primaryColor);
+    transition: 0.5s background-color;
+
+}
+
+.quickDetailContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.quickDetailContainer .quickHeading {
+    display: flex;
+    align-items: center;
+    gap: 5px
+}
+
+.quickDetailContainer .quickCallService {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.footerContact {
+    padding: var(--padding);
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+/* footer section */
+.footer {
+
+    border-top: 1px solid var(--thinBlack);
+    border-left: 1px solid var(--thinBlack);
+    border-right: 1px solid var(--thinBlack);
+    border-bottom: 1px solid var(--thinBlack);
+    margin: 0.6rem;
+
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+}
+
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.footer .footInner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+.footer .footerBrand {
+    display: flex; 
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.footerContainer h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.footerContainer .prodContainer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footerContainer .prodContainer ul li {
+    list-style: none;
+}
+
+/* this is for contact section within the footer section */
+.footerContainer .prodContainer .contInner {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.footerContainer ul li a {
+    letter-spacing: 1.5px;
+}
+
+.footerContainer .prodContainer ul li a {
+    list-style: none;
+    text-decoration: none;
+    color: var(--secondaryColor);
+    transition: 0.5s ease color;
+    font-weight: var(--fontWeight6);
+}
+
+.footerContainer .prodContainer ul li a:hover {
+    color: var(--highlight);
+    transition: 0.5s ease color;
+}
+
+.footerContainer .prodContainer.footPrivacy,
+.footerContainer .quickLinks {
+    margin: 20px 0 20px 0;
+    
+}
+
+.footerContainer .quickLinks ul{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    
+}
+
+footer .footerDescription {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+footer .footerDescription ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+footer .footerDescription ul li a{
+    text-decoration: none;
+    color: inherit;
+    transition: 0.5s ease color;
+    
+}
+
+footer .footerDescription ul li a:hover{
+    transition: 0.5s ease color;
+    color: var(--highlight);
+}
+
+footer .footerDescription .socialMediaContainer i{
+    transform: scale(1); 
+    transition: 0.5s ease transform, color 0.3s ease-in-out;
+    
+}
+
+footer .footerDescription .socialMediaContainer i:hover{
+    transform: scale(1.5);
+    transition: 0.5s ease transform, color 0.3s ease-in-out;
+    color: var(--highlight);
+}
+
+.footerContact div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footerContact div ul{
+    display: flex;
+    gap: 1rem;
+    
+}
+
+.footerContact div ul li a{
+    text-decoration: underline;
+    color: var(--secondaryColor);
+    transition: 0.5s ease color, 9.3s ease-in-out text-decoration;
+}
+
+.footerContact div ul li a:hover{
+    color: var(--highlight);
+        transition: 0.5s ease color, 9.3s ease-in-out text-decoration;
+    text-decoration: none;
+}
+
+
+@media screen and (min-width: 300px) {
+    
+}
+
+@media screen and (min-width: 320px) {
+    
+}
+
+@media screen and (min-width: 476px) {
+
+    .capContainer {
+        width: 430px;
+    }
+
+    .capContainer .capture {
+        width: 420px;
+        height: 255px;
+    }
+    
+    .featureContainer{
+        align-items: center;
+    }
+
+
+    .featureContainer .featureInner .featureEle .item{
+        padding: 1rem;
+        border-radius: var(--borderRadius);
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
+        max-width: 460px;
+
+    }
+}
+
+@media screen and (min-width: 578px) { 
+    .featureContainer .featureInner .featureEle {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .featureContainer .featureInner .featureEle .item{
+       width: 48%;
+       max-height: 150px;
+    }
+
+    .howContainer .howInner {
+        
+    }
+
+    .footInner{
+        display: flex;
+        gap: 2rem;
+    }
+
+   
+}
+
+@media screen and (min-width: 768px) {
+    .capContainer{
+        width: 460px;
+        height: 255px;
+    }
+
+    .capContainer .capture{
+        width: 450px;
+        height: 255px;
+    }
+
+    .featureContainer .featureInner .featureEle {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .featureContainer .featureInner .featureEle .item{
+       width: 48%;
+       max-height: 150px;
+    }
+
+    .featureContainer{
+        align-items: center;
+    }
+
+    .howContainer .howInner{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .howContainer .scanFromImage{
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .howContainer .howEle{
+        flex-direction: row;
+        
+    }
+
+    .footer .footerContainer{
+        flex-direction: row;
+        padding: 3rem;
+        flex-wrap: wrap;
+    }
+    .footer .footInner{
+        flex-direction: column;
+        
+    }
+    .footer .footerBrand{
+        gap: 1rem;
+        
+    }
+
+    /* this is for contact page */
+    .contactHero {
+        place-content: center;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .contactHero,
+    .formContainer {
+        padding: 2rem;
+    }
+
+    .formContainer .formHeading {
+        padding: 2rem;
+    }
+
+    .quickDetailContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+
+    .quickDetailContainer .quickCallService {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .formContainer .submitBtn {
+        font-size: 1.5rem;
+        font-weight: var(--fontWeight8);
+        margin-top: 1rem;
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+    .landingHero{
+        padding: 10rem;
+        margin: auto;
+    }
+    
+    .howContainer .howInner {
+       padding: 2rem;
+    }
+
+    .featureContainer .featureInner{
+        padding: 2rem;
+    }
+
+    .featureContainer .featureInner .featureEle{
+        justify-content: space-between;
+        
+    }
+    .queContainer section{
+        padding: 2rem;
+    }
+    .footerContainer,
+    header{
+        padding: 2rem;
+    }
+
+    .footer{
+        margin: 2rem;
+        border-radius: 70px;
+    }
+
+    .footerContainer {
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .footerDescription{
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* this is for contact page */
+    .contactHero {
+        place-content: center;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.25rem;
+    }
+
+    .contactHero h1{
+        font-size: 2.rem;
+    }
+
+    .contactHero,
+    .formContainer {
+        padding: 4rem;
+       
+    }
+
+    .formContainer {
+        font-size: 2rem;
+    }
+
+    .formContainer .formInner{
+        justify-content: space-between;
+        align-items: stretch;
+        padding-bottom: 1rem;
+    }
+
+    .formContainer .formInner input,
+    .formContainer textarea{
+       font-size: 1.25rem;;
+    }
+    .formContainer .formInner input:first-child{
+        width: 50%;
+        padding: 2rem;
+        margin-right: 0.5rem;
+    }
+
+    .formContainer textarea{
+        padding: 2rem;
+
+    }
+
+    .formContainer .formInner input:nth-child(3){
+        padding: 1rem;
+    }
+
+    .formContainer .formHeading {
+        padding: 2rem;
+    }
+
+    .quickDetailContainer {
+       
+    }
+    .quickDetailContainer h3{
+       
+    }
+
+    .quickDetailContainer .quickCallService {
+        
+    }
+
+    .formContainer .submitBtn {
+      
+    }
+
+   
+}
+
+@media screen and (min-width: 1024px) {
+    .howContainer .howInner{
+        width: 90%;
+        margin: auto;
+    }
+
+    .howContainer .howInner .howEle{
+        width: 70%;
+    }
+    .howContainer .howInner.scanFromImage{
+        gap: 2rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    h1{
+        font-size: 3rem;
+    }
+    h3{
+        font-size: 1.5rem;
+    }
+    .footer,
+    .howContainer .howInner,
+    .featureContainer,
+    .queContainer
+    {
+       width: 85%;
+       max-width: 1320px;
+       margin: auto;
+        
+    }
+}
+
+@media screen and (min-width: 1400px) {
+
+}
+
+/*
+@media (prefers-color-scheme: dark){
+    html{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    body{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    header{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+}
+*/

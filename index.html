@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" author="Theophilus Korsah">
+    <meta name="description" content="Scan QR codes instantly in your browser. No installation required. Supports camera scanning and image uploads. Secure, private, and works on all devices.">
+    <title>Free QR Code Scanner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link href="style.css" rel="stylesheet">
+    <link href="" rel="x-icon">
+
+</head>
+<body>
+
+    <!-- header section -->
+    <header>
+
+        <figure>
+            <img src="/WOMEN'S HARVESTS.jpg" alt="Logo" srcset="" width="45" height="auto">
+        </figure>
+
+        <nav>
+            <!-- Rounded switch -->
+            <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+            </label>
+        </nav>
+
+    </header>
+
+    <!-- hero section -->
+    <section class="landingHero">
+        <div>
+            <h1>The utimate fast, secure & browser-based QR Code scanner </h1><br>
+            <p>There is no need to download app. Scan any QR code or barcode instantly using your camera or by uploading an image. Simple, <strong>Simple, private</strong>, and <strong>100% free.</strong></p>
+        </div>
+    </section>
+    <br>
+
+    <!-- capture section -->
+    <section>
+        <section class="capContainer">
+            <div class="capture">
+                <video id="webcam" autoplay playsinline></video>
+                <!-- <div id="previewBox" class="image-container">No image uploaded yet</div> -->
+            </div>
+            <div class="capElements">
+                <div class="iBtn">Upload QR Image</div><!-- this is button to access camera -->
+                <div class="flashlight">
+                   
+                </div>
+            </div>
+        </section>
+    </section>
+    <br>
+
+    <!-- features section -->
+    <section class="featureContainer">
+        <section class="featureInner">
+            <h1>Key Features</h1>
+            <br>
+            <div class="featureEle">
+
+                <div class="item cameraContainer">
+                    <!-- generate icon from font awesome -->
+                    <div class="">
+                        <i class="fa-solid fa-camera"></i>
+                        <h3>Instant Camera Access</h3>
+                    </div>
+                    <br>
+                    <p>Works directly in your browser on iOS, Android, Windows, and Mac</p>
+                </div>
+                
+                <div class="item scanContainer">
+                    <!-- generate icon from font awesome -->
+                     <div>
+                        <i class="fa-solid fa-qrcode"></i>
+                        <h3>Scan from Image</h3>
+                     </div>
+                     <br>
+                    <p>Got a QR code saved in your gallery or a screenshot? Upload it directly to decode it in seconds.</p>
+                </div>
+                
+                <div class="item privacyContainer">
+                    <!-- generate icon from font awesome -->
+                    <div>
+                        <i class="fa-solid fa-lock"></i>
+                        <h3>Privacy-Centric</h3>
+                    </div>
+                    <br>
+                    <p>All decoding happens locally on your device. We never see your camera feed or the data you scan.</p>
+                </div>
+                
+                <div class="item historyContainer">
+                    <!-- generate icon from font awesome -->
+                    <div>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <h3>History Log (Optional)</h3>
+                    </div>
+                    <br>
+                    <p>Keep track of your recent scans locally in your browser so you never lose a link.</p>
+                </div>
+
+            </div>
+        </section>
+    </section>
+    <br>
+
+    <!-- how to section using camera -->
+    <section class="howContainer">
+        <div class="howInner">
+
+            <div class="howEle">
+                <h1>Scan QR Code with Camera</h1>
+                <div>
+                    <div>
+                        <div class="howTitle">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h3>Grant Permission</h3>
+                        </div>    
+                        <p>Click "Start Scanner" and allow camera access.</p>
+                    </div>
+                    
+                    <div>
+                        <div class="howTitle">
+                            <i class="fa-solid fa-expand"></i>
+                            <h3>Point & Scan</h3>
+                        </div> 
+                        <p>Frame the QR code within the square.</p>
+                    </div>
+
+                    <div>
+                        <div class="howTitle">
+                            <i class="fa-solid fa-share"></i>
+                            <h3>Action</h3>
+                        </div> 
+                        <p>Instantly open links, copy text, or save contact details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <figure>
+                <img src="file-import-svgrepo-com (2).svg" alt="Company Logo" width="300" height="300">
+            </figure>
+
+        </div>
+    </section>
+
+    <br>
+
+    <!-- how to scan from image -->
+    <section class="howContainer">
+        <div class="howInner scanFromImage">
+            <div class="howEle ">
+                <h1>Scan QR Code from image</h1>
+                <div class="">
+                    <p>Have a QR code saved as an image? Our online scanner can decode it for for you. This feature is perfect for QR Codes you received via email, sceenshots or downloaded files.</p>
+                    <div>
+                        <h3>How it works:</h3>
+                        <ul>
+                            <li>Step 1: Choose &quot;scan form image&quot;.</li>
+                            <li>Step 2: Select the image file with the QR code.</li>
+                            <li>Step 3: View the decoded content instantly.</li>
+                        </ul>
+                    </div>
+
+                   
+                </div>
+            </div>
+
+            <figure>
+                <img src="file-import-svgrepo-com (2).svg" alt="Company Logo" width="300" height="300">
+            </figure>
+        </div>
+    </section>
+
+    <br>
+    <!-- frequently question and answers section -->
+    <section class="queContainer">
+        <section>
+            <h2>Frequently Q&A</h2>
+            <div class="questions">
+                
+                <div class="qEle">
+                    <div class="queItem">
+                        <h3>Why you should choose us?</h3>
+                       <i class="fa-solid fa-chevron-down" style="cursor: pointer"></i> <!-- down ward arrow from font awesomw -->
+                    </div>
+                    <p class="faqAnswer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo, numquam nam.</p>
+                </div>
+
+                <div class="qEle">
+                    <div class="queItem">
+                        <h3>Why you should choose us?</h3>
+                       <i class="fa-solid fa-chevron-down" style="cursor: pointer"></i>  <!-- down ward arrow from font awesomw -->
+                    </div>
+                    <p class="faqAnswer">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo, numquam nam.</p>
+                </div>
+
+            </div>
+        </section>
+    </section>
+    <br>
+    <!-- contact us section -->
+
+    <!-- footer section -->
+    <footer class="footer">
+        <div class="footerContainer">
+            <div class="footerBrand">
+                <img src="/WOMEN'S HARVESTS.jpg" alt="logo" srcset="" width="100" height="100">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eligendi ipsa cum suscipit unde nobis, consectetur eius iusto qui nihil vero repellendus cupiditate soluta.</p>
+            </div>
+
+            <div class="footInner">
+                <!-- section container -->
+                <div class="prodContainer">
+                        <h3>Our Services</h3>
+                    <div>
+                    <ul>
+                            <li><a href="#">Scan from Image</a></li>
+                            <li><a href="#">Generate QR Code</a></li>
+                            <li><a href="#">Bulk Scanner</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <!-- contact container -->
+                <div class="prodContainer">
+                    <h3>Contact Info</h3>
+                    <ul>
+                            <div class="contInner">
+                                <i class="fa-solid fa-envelope"></i> <!--  generate icon form font awesome -->
+                                <li><a class="emailLink">Email</a></li>
+                            </div>
+                            
+                            <div class="contInner">
+                                <i class="fa-solid fa-location-dot"></i> <!--  generate icon form font awesome -->
+                                <li>122 Street, Accra Ghana</li>
+                            </div>
+
+                            <div class="contInner">
+                                <i class="fa-solid fa-phone"></i> <!--  generate icon form font awesome -->
+                                <li>0558674945</li>
+                            </div>
+                            
+                        
+                        </ul>
+                </div>
+            </div>
+
+            <!-- compliance container -->
+            <div class="prodContainer footPrivacy">
+                <h3>Privacy & Security</h3>
+                <p>All processing is done in your <strong>browser</strong>. <br>We never store your camera data.</p>
+            </div>
+
+                <!-- about us container -->
+            <div class="prodContainer quickLinks">
+                <h3>Quick links</h3>
+                <ul>
+                        <li><a href="http://">About Us</a></li>
+                        <li><a href="http://">Contact Us</a></li>
+                    </ul>
+            </div>
+               
+        </div>
+
+        <div class="footerDescription">
+            <ul>
+                <li> <a href="http://">Cookie Settings</a></li>
+                <li> <a href="http://">Privacy Policy</a></li>
+                <li> <a href="http://">Imprint </a></li>
+            </ul>
+            <div class="socialMediaContainer">
+                <ul>
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-github"></i>
+                </ul>
+            </div>
+            <li><a href="http://">Back to top</a></li>
+        
+        </div>
+
+    </footer>
+    <br>
+    <script src="app.js" defer></script>
+
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "Does this QR scanner save my data?",
+            "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All scanning happens locally in your browser. No images or data are ever sent to our servers."
+            }
+        }]
+        }
+    </script>
+</body>
+</html>
