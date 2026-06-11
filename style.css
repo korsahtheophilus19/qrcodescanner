@@ -18,20 +18,32 @@
     --boxShadow: 0px 0px 10px var(--shadowColor);
     --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
 
-    --borderRadius: 5px ;
+    --borderRadius: 8px ;
     --bRadiusHalf: 50%;
     --padding: 1rem;
     --paddingHalf: 0.5rem;
     --marginHalf: 0.5rem;
 
-    --formInputColor:#f0f8ff;
+    --formInputColor:#f3f2f2;
     --darkFormInputColor: #353840;
     --thinBlack:#41444D;
     
 }
+
+
+img{
+    display: block;
+}
 li, a{
     list-style: none;
     text-decoration: cente;
+}
+
+li, a, p, h1, h2, h3, button{
+    color: var(--secondaryColor);
+}
+textarea{
+    resize: none;
 }
 
 /* special class and style */
@@ -156,51 +168,110 @@ header nav ul li{
     
 }
 
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+
 .capContainer{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: var(--padding);
-    box-shadow: 0px 0px 10px  rgba(0, 0, 0, 0.092);
-    width: 300px;
+    text-align: center;
+    place-content: center;
+    box-shadow: 0px 0px 10px  rgba(0, 0, 0, 0.592);
     margin: auto;
     border-radius: var(--borderRadius);
-    color:black
+    color:black;
+    overflow: hidden;
+    width: 300px;
+    padding: 1rem;
 }
 
 .capContainer .capture{
     text-align: center;
     place-content: center;
-    width: clamp(280px 100vw 420px);
-    height: 580px;
     border-radius: var(--borderRadius);
     font-weight: var(--fontWeight6);
+    border: 1px solid var(--highlight);
+    object-fit: cover;
+    width: 100%;
+    min-width: 290px;
+    max-width: 600px;
+    height: 400px;
     overflow: hidden;
-    border: 1px solid red;
+
 }
 
 /* this is for video */
 /* Make the video fill the container cleanly */
 #webcam {
+    display: block;
     width: 100%;
-    height: 50%;
+    max-width: 600px;
+    height: 400px;
+    overflow: hidden;
     object-fit: cover; /* Crops video to fill container without stretching */
     transform: scaleX(-1); /* Mirrors the stream for a natural selfie/viewing experience */
+    
 }
   
 .capContainer .capElements{
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
+    padding: var(--padding);
 }
 
-.capContainer div .iBtn{
-    cursor: pointer;   
+.capContainer div .startCamBtn{
+    cursor: pointer;
 }
 
-.capContainer div .flashlight{
+.capContainer .flashlight{
     cursor: pointer; 
+    font-weight: var(--fontWeight6);
+    border-radius: var(--bRadiusHalf);
+    background-color: var(--thinBlack);
+}
+
+/* this is for selecting image section in the home page*/
+.previewBox{
+    width: 100%;
+    min-width: 300px;
+    max-width: 600px;
+    height: 400px;
+    object-fit: cover;
+    text-align: center;
+    place-content: center;
+    font-weight: var(--fontWeight8);
+    font-size: 1.55rem;
+    transition: all 0.3s ease;
+    /* Note: to remove cursor when this element is inspecting in the Dev  */
+    padding: 0.2rem;
+    /* pointer-events: none; */
+
+}
+
+/* The Image itself */
+.previewBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures the image fills the container perfectly */
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.imageBtn{
+    font-weight: var(--fontWeight8);
+    cursor: pointer;
+    color: white;
+    padding: var(--padding);
+    background-color:  black;
+    display: block;
+    border-radius: 5px;
 }
 
 .featureContainer{
@@ -208,6 +279,12 @@ header nav ul li{
     flex-direction: column;
     gap:1rem;
     padding: var(--padding);
+}
+
+.featureContainer h1{
+    text-align: center;
+    font-size: 2.25rem;
+    margin-top: 1rem;
 }
 
 .featureContainer .featureInner{
@@ -318,6 +395,8 @@ header nav ul li{
 .contactHero{
     padding: var(--padding);
     line-height: 30px;
+    text-align: center;
+    place-content: center;
 }
 
 .formHeading {
@@ -392,6 +471,7 @@ header nav ul li{
     justify-content: space-between;
     flex-direction: column;
     gap: .5rem;
+    padding: 1rem; 
 }
 
 .quickDetailContainer .quickHeading {
@@ -576,7 +656,9 @@ footer .footerDescription .socialMediaContainer i:hover{
 
 
 @media screen and (min-width: 300px) {
-    
+    .capContainer {
+        max-width: 430px;
+    }
 }
 
 @media screen and (min-width: 320px) {
@@ -584,15 +666,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 476px) {
-
-    .capContainer {
-        width: 430px;
-    }
-
-    .capContainer .capture {
-        width: 420px;
-        height: 255px;
-    }
     
     .featureContainer{
         align-items: center;
@@ -634,16 +707,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 768px) {
-    .capContainer{
-        width: 460px;
-        height: 255px;
-    }
-
-    .capContainer .capture{
-        width: 450px;
-        height: 255px;
-    }
-
     .featureContainer .featureInner .featureEle {
         flex-direction: row;
         flex-wrap: wrap;
@@ -728,9 +791,20 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 992px) {
+    header{
+        padding: 1rem;
+    }
     .landingHero{
         padding: 10rem;
         margin: auto;
+    }
+
+    .main {
+        flex-direction: row;
+    }
+
+    .capContainer {
+        min-width: 600px;
     }
     
     .howContainer .howInner {
@@ -748,16 +822,16 @@ footer .footerDescription .socialMediaContainer i:hover{
     .queContainer section{
         padding: 2rem;
     }
-    .footerContainer,
-    header{
-        padding: 2rem;
-    }
-
+    
     .footer{
         margin: 2rem;
         border-radius: 70px;
     }
-
+    
+    .footerContainer{
+        padding: 2rem;
+    }
+    
     .footerContainer {
         flex-direction: row;
         justify-content: space-evenly;
@@ -791,7 +865,7 @@ footer .footerDescription .socialMediaContainer i:hover{
         font-size: 2rem;
     }
 
-    .formContainer .formInner{
+    .formContainer .formInner{ 
         justify-content: space-between;
         align-items: stretch;
         padding-bottom: 1rem;
@@ -799,7 +873,7 @@ footer .footerDescription .socialMediaContainer i:hover{
 
     .formContainer .formInner input,
     .formContainer textarea{
-       font-size: 1.25rem;;
+       font-size: 1.25rem;
     }
     .formContainer .formInner input:first-child{
         width: 50%;
@@ -821,7 +895,9 @@ footer .footerDescription .socialMediaContainer i:hover{
     }
 
     .quickDetailContainer {
-       
+        width: 65%;
+        margin: auto;
+        
     }
     .quickDetailContainer h3{
        
@@ -859,15 +935,30 @@ footer .footerDescription .socialMediaContainer i:hover{
     h3{
         font-size: 1.5rem;
     }
-    .footer,
+    
     .howContainer .howInner,
     .featureContainer,
-    .queContainer
+    .queContainer,
+    .formContainer,
+    .contactHero
     {
        width: 85%;
        max-width: 1320px;
        margin: auto;
         
+    }
+
+    .footer{
+       width: 80%;
+       margin: auto;
+    }
+
+    .footerContainer{
+        padding: 5rem;
+    }
+
+    .quickDetailContainer{
+        z-index: 100;
     }
 }
 
@@ -882,6 +973,16 @@ footer .footerDescription .socialMediaContainer i:hover{
         color: var(--primaryColor);
     }
 
+        li,
+        a,
+        p,
+        h1,
+        h2,
+        h3,
+        button {
+            color: var(--primaryColor);
+        }
+
     body{
         background-color: var(--secondaryColor);
         color: var(--primaryColor);
@@ -893,4 +994,5 @@ footer .footerDescription .socialMediaContainer i:hover{
     }
 
 }
+
 */

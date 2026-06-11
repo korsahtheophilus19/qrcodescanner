@@ -17,7 +17,7 @@
     <header>
 
         <figure>
-            <img src="/WOMEN'S HARVESTS.jpg" alt="Logo" srcset="" width="45" height="auto">
+            <img src="./WOMEN'S HARVESTS.jpg" alt="Logo" srcset="" width="45" height="auto">
         </figure>
 
         <nav>
@@ -34,24 +34,40 @@
     <section class="landingHero">
         <div>
             <h1>The utimate fast, secure & browser-based QR Code scanner </h1><br>
-            <p>There is no need to download app. Scan any QR code or barcode instantly using your camera or by uploading an image. Simple, <strong>Simple, private</strong>, and <strong>100% free.</strong></p>
+            <p>There is no need to download app. Scan any QR code or barcode instantly using your camera or by uploading an image. <strong>Simple, Private</strong>, and <strong>100% free.</strong></p>
         </div>
     </section>
     <br>
 
     <!-- capture section -->
-    <section>
+    <section class="main">
         <section class="capContainer">
             <div class="capture">
                 <video id="webcam" autoplay playsinline></video>
                 <!-- <div id="previewBox" class="image-container">No image uploaded yet</div> -->
             </div>
+
             <div class="capElements">
-                <div class="iBtn">Upload QR Image</div><!-- this is button to access camera -->
+                <div class="startCamBtn">Start Camera</div><!-- this is button to access image on the device -->
+
+                <div class="stopCamBtn">Stop Camera</div><!-- this is button to access image on the device -->
+
                 <div class="flashlight">
-                   
+                   Light
                 </div>
             </div>
+        </section>
+
+    <br>
+
+    <!-- Selecting image section -->
+        <section class="capContainer">
+            <div class="previewBoxContainer">
+                <div class="previewBox" >No image uploaded yet</div>
+                <!-- note: this will use icon form fontawese to replace the text -->
+            </div>
+            <br>
+            <div class="imageBtn">Select Image</div>
         </section>
     </section>
     <br>
@@ -209,7 +225,7 @@
     <footer class="footer">
         <div class="footerContainer">
             <div class="footerBrand">
-                <img src="/WOMEN'S HARVESTS.jpg" alt="logo" srcset="" width="100" height="100">
+                <img src="./WOMEN'S HARVESTS.jpg" alt="logo" srcset="" width="100" height="100">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eligendi ipsa cum suscipit unde nobis, consectetur eius iusto qui nihil vero repellendus cupiditate soluta.</p>
             </div>
 
@@ -304,5 +320,6 @@
         }]
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 </body>
 </html>

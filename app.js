@@ -44,8 +44,10 @@ questions.forEach(question => {
 
 // capturing QR code 
 // Function to start the webcam stream inside your .capture container
+
+const videoElement = document.getElementById('webcam');
+
 async function initCameraOnLoad() {
-    const videoElement = document.getElementById('webcam');
 
     // Check if the browser supports media devices
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -69,69 +71,196 @@ async function initCameraOnLoad() {
     }
 }
 
-// Automatically trigger the camera the absolute second the page load finishes
-window.addEventListener('load', initCameraOnLoad);
-
-
-
-
-const iBtn = document.querySelector(".iBtn").addEventListener("click", selectImage)
-
-function selectImage() {
-    // 1. Create a hidden HTML input element of type "file"
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*"; // Restrict selection to image files only
-
-    // 2. Listen for when the user successfully selects a file
-    fileInput.onchange = function (event) {
-        const file = event.target.files[0]; // Get the first selected file
-        console.log(file)
+// Function to turn OFF the camera
+function stopCamera() {
+    if (videoElement && videoElement.srcObject) {
         
-        if (file) {
-            // 3. Create a URL that points to the local file
-            const imageUrl = URL.createObjectURL(file);
+        // 1. Get the active MediaStream from the video element's srcObject
+        const stream = videoElement.srcObject;
 
-            // 4. Create an img element and inject it into the page
-            const capture = document.querySelector(".capture")
-            const img = document.createElement("img");
-            img.src = imageUrl;
+        // 2. Get all active video/audio tracks FROM THE STREAM
+        const tracks = stream.getTracks();
 
-            // Append it to your container (e.g., body or a specific div)
-            capture.appendChild(img);
-        }
-    };
+        // 3. Loop through them and shut down the hardware connection
+        tracks.forEach(track => track.stop());
 
-    // 3. Programmatically "click" the hidden input to open the file dialog
-    fileInput.click();
+        // 4. Completely clear the video element source
+        videoElement.srcObject = null;
+        
+        console.log("Camera successfully stopped.");
+    } else {
+        console.log("No active camera stream found to stop.");
+    }
 }
 
-// function selectImage() {
-//             const fileInput = document.createElement("input");
-//             fileInput.type = "file";
-//             fileInput.accept = "image/*";
 
-//             fileInput.onchange = function (event) {
-//                 const file = event.target.files[0];
+
+// Automatically trigger the camera the absolute second the page load finishes
+const startCamBtn = document.querySelector(".startCamBtn");
+const stopCamBtn = document.querySelector(".stopCamBtn");
+
+const imageBtn = document.querySelector(".imageBtn");
+//.addEventListener("click", selectImage)
+
+startCamBtn.addEventListener('click', initCameraOnLoad);
+stopCamBtn.addEventListener('click', stopCamera);
+
+
+try {
+    function selectImage() {
+        // 1. Create a hidden HTML input element of type "file"
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*"; // Restrict selection to image files only
+
+        // 2. Listen for when the user successfully selects a file
+        fileInput.onchange = function (event) {
+            const file = event.target.files[0]; // Get the first selected file
+            
+            if (file) {
+                // --- VISUAL PREVIEW LOGIC ---
+                const imageUrl = URL.createObjectURL(file);
+                const previewBox = document.querySelector(".previewBox");
+                previewBox.innerHTML = ``; // Clear previous container contents
                 
-//                 if (file) {
-//                     const imageUrl = URL.createObjectURL(file);
+                const previewImg = document.createElement("img");
+                previewImg.src = imageUrl;
+                
+                previewBox.appendChild(previewImg);
+                previewBox.classList.add("previewBox");
+                imageBtn.style.display = "none"; // Hide button after selection
 
-//                     // 1. Target our single preview container
-//                     const previewBox = document.getElementById("previewBox");
-                    
-//                     // 2. Clear out whatever was inside it previously (Ensures only ONE image)
-//                     previewBox.innerHTML = "";
+                // --- DECODING LOGIC (The Missing Link Fix) ---
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        // Create an off-screen canvas
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Scale management: Helps keep heavy phone camera pixels optimized
+                        const MAX_WIDTH = 800;
+                        let width = img.width;
+                        let height = img.height;
 
-//                     // 3. Create the new image and apply our styling class
-//                     const img = document.createElement("img");
-//                     img.src = imageUrl;
-//                     img.classList.add("zoom-image");
-                    
-//                     // 4. Put the new image inside the container
-//                     previewBox.appendChild(img);
-//                 }
-//             };
+                        if (width > MAX_WIDTH) {
+                            height = Math.round((height * MAX_WIDTH) / width);
+                            width = MAX_WIDTH;
+                        }
 
-//             fileInput.click();
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        // Draw image onto the canvas
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Extract the image pixel data
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        
+                        // Pass the data to the jsQR decoder
+                        const code = jsQR(imageData.data, imageData.width, imageData.height);
+                        
+                        if (code) {
+                            console.log("Decoded Data:", code.data);
+                            // Call your result handler function here! 
+                            // e.g., displayResult(code.data);
+                        } else {
+                            alert("No QR code found in this image. Try a clearer picture!");
+                            imageBtn.style.display = "block"; // Bring back button if it failed
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+
+                // CRITICAL: This fires off the reader and kicks off the onload chain above!
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // 3. Programmatically "click" the hidden input to open the file dialog
+        fileInput.click();
+    }
+
+    imageBtn.addEventListener('click', selectImage);
+
+} catch (error) {
+    console.error("An error occurred during selection/decoding:", error);
+}
+
+// start flashlight when the camera is working
+try {
+    const flashlight = document.querySelector(".flashlight");
+
+    flashlight.addEventListener("click", startLight);
+
+} catch (error) {
+    
+}
+
+try {
+    const date = new Date();
+    const fYear = date.getFullYear();
+
+    const year = document.querySelector(".year").textContent = `© ${fYear} scanQr.com`
+} catch (error) {
+    
+}
+
+
+
+
+
+
+
+
+
+
+// function handleImageUpload(event) {
+//   const file = event.target.files[0];
+//   if (!file) return;
+
+//   const reader = new FileReader();
+  
+//   reader.onload = function(e) {
+//     const img = new Image();
+//     img.onload = function() {
+//       // 1. Create an off-screen canvas
+//       const canvas = document.createElement('canvas');
+//       const ctx = canvas.getContext('2d');
+      
+//       canvas.width = img.width;
+//       canvas.height = img.height;
+      
+//       // 2. Draw the image onto the canvas
+//       ctx.drawImage(img, 0, 0, img.width, img.height);
+      
+//       // 3. Extract the image pixel data
+//       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      
+//       // 4. Pass the data to the jsQR decoder
+//       const code = jsQR(imageData.data, imageData.width, imageData.height);
+      
+//       if (code) {
+//         displayResult(code.data);
+//       } else {
+//         alert("No QR code found in this image. Try a clearer picture!");
+//       }
+//     };
+//     img.src = e.target.result;
+//   };
+  
+//   reader.readAsDataURL(file);
 // }
+
+// function displayResult(text) {
+//   const output = document.getElementById('result-display');
+//   // Check if text is a URL
+//   if (text.startsWith('http://') || text.startsWith('https://')) {
+//     output.innerHTML = `<a href="${text}" target="_blank" class="result-btn">Open Link: ${text}</a>`;
+//   } else {
+//     output.innerHTML = `<div class="result-text"><p>${text}</p><button onclick="navigator.clipboard.writeText('${text}')">Copy</button></div>`;
+//   }
+// }
+
