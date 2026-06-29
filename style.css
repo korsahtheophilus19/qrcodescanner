@@ -9,17 +9,21 @@
     --fontWeight8: 800; 
     --fontWeight6: 600; 
     --primaryColor: #E9ECFB;
-    --secondaryColor: #21242A;
+    --heroColor: aliceblue;
+    --sColor: #21242A;
+    --secondaryColor: #121315;
     --sColorTrans: rgba(33, 36, 42, 0.5);
     --privacyBg: #0A2F30;
     --thinWhite:#C0C0C0;
     --highlight: coral;
-    --shadowColor: 
-    --boxShadow: 0px 0px 10px var(--shadowColor);
+
+    --boxShadowDark: 0px 0px 10px var(--boxShadowLight);
+    --boxShadowLight: 0px 0px 10px var(--thinBlack);
     --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
 
     --borderRadius: 8px ;
-    --bRadiusHalf: 50%;
+    --borderRadius4: 4px ;
+    --bRadiusHalf: 50%;    
     --padding: 1rem;
     --paddingHalf: 0.5rem;
     --marginHalf: 0.5rem;
@@ -46,7 +50,8 @@ textarea{
     resize: none;
 }
 
-/* special class and style */
+/* SPECIAL CLASS AND STYING */
+
 
 /* Hide the answers by default */
 .faqAnswer {
@@ -63,7 +68,6 @@ textarea{
     margin-top: 10px;
     transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, margin 0.5s ease;
 }
-
 
 /* The switch - the box around the slider */
 .switch {
@@ -89,6 +93,7 @@ textarea{
   right: 0;
   bottom: 0;
   background-color: #ccc;
+  border: 1px solid var(--thinBlack);
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -106,11 +111,12 @@ textarea{
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color:var(--secondaryColor);
+    border: 1px solid var(--thinWhite);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px var(--secondaryColor);
 }
 
 input:checked + .slider:before {
@@ -128,18 +134,64 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.modal{
-    width: 280px;
-    height: 50px;
-    background-color: black;
-    color: white;
-    border: 1px solid red;
+.modal {
+    padding: 1rem;
+    position: fixed;
+    top: -10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--atRed);
+    color: var(--flatWhite);
+    z-index: 1;
+    font-weight: 700;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: none;
+    width: 300px;
+    text-align: center;
+    background-color: var(--thinBlack);
 
-    animation-name: showUp;
-    animation-timing-function: 1;
-    animation-duration: 0.3s;
-    animation-delay: 0.3s;
-    
+    animation-name: show;
+    animation-iteration-count: 1;
+    animation-duration: .90s;
+    animation-fill-mode: backwards;
+    animation-delay: 0.1s;
+
+}
+
+@keyframes errorDisplay {
+    0% {
+        top: -10%;
+    }
+
+    20% {
+        top: 5%;
+    }
+
+    50% {
+        top: 10%;
+    }
+
+    60% {
+        top: 10%;
+    }
+
+    70% {
+        top: 10%;
+    }
+
+    80% {
+        top: 10%;
+    }
+
+    90% {
+        top: 10%;
+    }
+
+    100% {
+        top: -10%;
+    }
+
 }
 
 /* header section */
@@ -148,7 +200,7 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: var(--padding);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.141);
+    box-shadow: var(--boxShadowLight);
 }
 
 header nav ul{
@@ -225,15 +277,32 @@ header nav ul li{
     padding: var(--padding);
 }
 
-.capContainer div .startCamBtn{
+.capContainer div .startCamBtn,
+.capContainer div .stopCamBtn{
     cursor: pointer;
+    background-color: var(--privacyBg);
+    font-weight: var(--fontWeight6);
+    border-radius: var(--borderRadius4);
+    color:var(--primaryColor);
+    text-align: center;
+    place-content: center;
+    padding: var(--paddingHalf);
 }
 
 .capContainer .flashlight{
+    width: 40px;
+    text-align: center;
+    place-content: center;
+}
+
+.capContainer .flashlight i{
     cursor: pointer; 
-    font-weight: var(--fontWeight6);
+    width: 30px;
+    height: 30px;
     border-radius: var(--bRadiusHalf);
-    background-color: var(--thinBlack);
+    border: 1px solid var(--thinBlack);
+    text-align: center;
+    place-content: center;
 }
 
 /* this is for selecting image section in the home page*/
@@ -260,7 +329,6 @@ header nav ul li{
     height: 100%;
     object-fit: cover;
     /* Ensures the image fills the container perfectly */
-    cursor: pointer;
     transition: opacity 0.3s ease;
 }
 
@@ -801,11 +869,47 @@ footer .footerDescription .socialMediaContainer i:hover{
 
     .main {
         flex-direction: row;
+        gap: 1rem;
+        padding: var(--paddingHalf);
+        justify-content: center;
+        align-items: center;
+        place-content: center;
     }
 
     .capContainer {
-        min-width: 600px;
+        min-width: 500px;
+        max-width: 500px;
+        max-height: 500px;
+        margin: 0;
     }
+
+   /* this is for selecting image section in the home page*/
+   .previewBox {
+       width: 100%;
+       min-width: 300px;
+       max-width: 600px;
+       height: 400px;
+       object-fit: cover;
+       text-align: center;
+       place-content: center;
+       font-weight: var(--fontWeight8);
+       font-size: 1.55rem;
+       transition: all 0.3s ease;
+       /* Note: to remove cursor when this element is inspecting in the Dev  */
+       padding: 0.2rem;
+       /* pointer-events: none; */
+
+   }
+
+   /* The Image itself */
+   .previewBox img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       /* Ensures the image fills the container perfectly */
+       cursor: pointer;
+       transition: opacity 0.3s ease;
+   }
     
     .howContainer .howInner {
        padding: 2rem;
@@ -966,22 +1070,45 @@ footer .footerDescription .socialMediaContainer i:hover{
 
 }
 
-/*
-@media (prefers-color-scheme: dark){
+
+@media (prefers-color-scheme: light){
+    /* The slider */
+    .slider {
+        background-color: var(--primaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: var(--secondaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px var(--secondaryColor);
+    }
+
     html{
         background-color: var(--secondaryColor);
         color: var(--primaryColor);
     }
 
-        li,
-        a,
-        p,
-        h1,
-        h2,
-        h3,
-        button {
-            color: var(--primaryColor);
-        }
+  
+    .landingHero{
+        background-color: var(--heroColor);
+        color: var(--highlight);
+    }
 
     body{
         background-color: var(--secondaryColor);
@@ -993,6 +1120,46 @@ footer .footerDescription .socialMediaContainer i:hover{
         color: var(--primaryColor);
     }
 
+    .capContainer{
+        box-shadow: var(--boxShadowLight);
+        background-color: #121315;
+    }
+
+    .capContainer .capture {
+        border: 1px solid var(--thinWhite);
+    }
+
+    .capContainer .flashlight i {
+        border: 1px solid var(--thinWhite);
+        color: var(--primaryColor);
+    }
+
+    .capContainer .previewBox {
+        color: var(--primaryColor);
+    }
+
+   .featureContainer .featureInner .featureEle .item {
+       background-color: var(--sColor);
+       color: var(--primaryColor);
+
+    }
+    
+   .featureContainer .featureInner .featureEle  {
+       background-color: var(--sColor);
+       color: var(--primaryColor);
+
+    }
+
 }
 
-*/
+
+
+
+
+
+
+
+
+
+
+

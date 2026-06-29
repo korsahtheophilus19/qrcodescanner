@@ -41,7 +41,6 @@ questions.forEach(question => {
     });
 });
 
-
 // capturing QR code 
 // Function to start the webcam stream inside your .capture container
 
@@ -63,6 +62,39 @@ async function initCameraOnLoad() {
             // Assign the stream to your video element
             videoElement.srcObject = stream;
             
+
+        function scanQRCode() {
+        // Check if the video is ready and playing
+            if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+                // Match canvas dimensions to the video frame
+                canvasElement.height = videoElement.videoHeight;
+                canvasElement.width = videoElement.videoWidth;
+
+                // Draw the current video frame onto the hidden canvas
+                canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+                // Extract the pixel image data from the canvas
+                const imageData = canvasCtx.getImageData(0, 0, canvasElement.width, canvasElement.height);
+
+                // Use jsQR to locate and decode a QR code within the pixel data
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert",
+                });
+
+                if (code) {
+                    // QR code detected! Handle the result here
+                    outputSpan.innerText = code.data;
+                    outputSpan.style.color = "green";
+                    
+                    // Optional: stop scanning or take an action (like redirecting)
+                    console.log("Found QR code:", code.data);
+                }
+
+            }
+        }
+       // Continuously call this function to process the next incoming camera frames
+        requestAnimationFrame(scanQRCode);
+        
         } catch (error) {
             console.error("Camera access denied or unavailable:", error);
         }
@@ -128,7 +160,7 @@ try {
                 
                 previewBox.appendChild(previewImg);
                 previewBox.classList.add("previewBox");
-                imageBtn.style.display = "none"; // Hide button after selection
+                //imageBtn.style.display = "none"; // Hide button after selection
 
                 // --- DECODING LOGIC (The Missing Link Fix) ---
                 const reader = new FileReader();
@@ -158,7 +190,7 @@ try {
                         
                         // Extract the image pixel data
                         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        
+                        console.log(imageData)
                         // Pass the data to the jsQR decoder
                         const code = jsQR(imageData.data, imageData.width, imageData.height);
                         
@@ -167,7 +199,26 @@ try {
                             // Call your result handler function here! 
                             // e.g., displayResult(code.data);
                         } else {
-                            alert("No QR code found in this image. Try a clearer picture!");
+                            //alert("No QR code found in this image. Try a clearer picture!");
+                            //window.body.appendChild("")
+                             //alert("Select a Network");
+                            const modal = document.createElement('div');
+                    
+                            // 2. Add your ID and Class
+                            modal.id = "myModal";
+                            modal.className = "modal"; // 'active' to make it visible
+                            
+                            // 3. Add the text/content
+                            modal.innerHTML = `
+                                <div class="modal-content">
+                                    No QR code found in this image. Try a clearer picture!
+                                </div>
+                            `;
+
+                            // 4. IMPORTANT: Append it so it sits ON TOP of the content
+                            document.body.appendChild(modal);
+                            
+                            return;
                             imageBtn.style.display = "block"; // Bring back button if it failed
                         }
                     };
@@ -207,11 +258,6 @@ try {
 } catch (error) {
     
 }
-
-
-
-
-
 
 
 
