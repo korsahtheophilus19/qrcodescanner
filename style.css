@@ -220,6 +220,16 @@ header nav ul li{
     
 }
 
+.landingHero h1{
+    letter-spacing: 1px;
+    line-height: 30px;
+    
+}
+.landingHero div{
+    line-height: 25px;
+    
+}
+
 .main{
     display: flex;
     flex-direction: column;
@@ -233,7 +243,7 @@ header nav ul li{
     flex-direction: column;
     text-align: center;
     place-content: center;
-    box-shadow: 0px 0px 10px  rgba(0, 0, 0, 0.592);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.29);
     margin: auto;
     border-radius: var(--borderRadius);
     color:black;
@@ -405,6 +415,14 @@ header nav ul li{
 }
 
 .howContainer .howInner .howEle div {
+   margin-top:var(--marginHalf);
+   gap: 1rem;
+}
+.howContainer .howInner .howEle div p{
+   line-height: 25px;
+}
+
+.howContainer .howInner .howEle div ul li{
    margin-top:var(--marginHalf);
    gap: 1rem;
 }
