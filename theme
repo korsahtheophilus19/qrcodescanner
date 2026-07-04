@@ -1,0 +1,82 @@
+
+@media (prefers-color-scheme: light){
+    /* The slider */
+    .slider {
+        background-color: var(--primaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: var(--secondaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px var(--secondaryColor);
+    }
+
+    html{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+  
+    .landingHero{
+        background-color: var(--heroColor);
+        color: var(--highlight);
+    }
+
+    body{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    header{
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    .capContainer{
+        box-shadow: var(--boxShadowLight);
+        background-color: #121315;
+    }
+
+    .capContainer .capture {
+        border: 1px solid var(--thinWhite);
+    }
+
+    .capContainer .flashlight i {
+        border: 1px solid var(--thinWhite);
+        color: var(--primaryColor);
+    }
+
+    .capContainer .previewBox {
+        color: var(--primaryColor);
+    }
+
+   .featureContainer .featureInner .featureEle .item {
+       background-color: var(--sColor);
+       color: var(--primaryColor);
+
+    }
+    
+   .featureContainer .featureInner .featureEle  {
+       background-color: var(--sColor);
+       color: var(--primaryColor);
+
+    }
+
+}
+

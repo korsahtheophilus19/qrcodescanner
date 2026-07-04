@@ -45,61 +45,74 @@ questions.forEach(question => {
 // Function to start the webcam stream inside your .capture container
 
 const videoElement = document.getElementById('webcam');
+// Keep track of the animation frame ID globally or at a higher scope so we can stop it
+let animationFrameId = null;
 
 async function initCameraOnLoad() {
-
     // Check if the browser supports media devices
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        try {
-            // Request camera permissions instantly
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { 
-                    facingMode: "user" // Use "environment" if you are building a rear-facing QR scanner
-                }, 
-                audio: false 
-            });
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error("Browser does not support getUserMedia.");
+        return;
+    }
+
+    try {
+        // Request camera permissions instantly
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                facingMode: "user" // Use "environment" if you are building a rear-facing QR scanner
+            }, 
+            audio: false 
+        });
+        
+        // Assign the stream to your video element
+        videoElement.srcObject = stream;
+        
+        // Correctly fetch the button element and update its text
+        const stopCamBtn = document.querySelector(".startCamBtn");
+        if (stopCamBtn) {
+            stopCamBtn.textContent = "Stop Camera";
             
-            // Assign the stream to your video element
-            videoElement.srcObject = stream;
-            
+            // Remove any old listener just in case, then attach the stop function
+            stopCamBtn.removeEventListener("click", stopCamera);
+            stopCamBtn.addEventListener("click", stopCamera);
+        }
 
-        function scanQRCode() {
-        // Check if the video is ready and playing
-            if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-                // Match canvas dimensions to the video frame
-                canvasElement.height = videoElement.videoHeight;
-                canvasElement.width = videoElement.videoWidth;
-
-                // Draw the current video frame onto the hidden canvas
-                canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
-
-                // Extract the pixel image data from the canvas
-                const imageData = canvasCtx.getImageData(0, 0, canvasElement.width, canvasElement.height);
-
-                // Use jsQR to locate and decode a QR code within the pixel data
-                const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: "dontInvert",
-                });
-
-                if (code) {
-                    // QR code detected! Handle the result here
-                    outputSpan.innerText = code.data;
-                    outputSpan.style.color = "green";
-                    
-                    // Optional: stop scanning or take an action (like redirecting)
-                    console.log("Found QR code:", code.data);
+        // Function to turn OFF the camera
+        function stopCamera() {
+            if (videoElement && videoElement.srcObject) {
+                // 1. Cancel the ongoing QR scanning animation loop
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
                 }
 
+                // 2. Get the active MediaStream from the video element's srcObject
+                const stream = videoElement.srcObject;
+
+                // 3. Loop through them and shut down the hardware connection
+                const tracks = stream.getTracks();
+                tracks.forEach(track => track.stop());
+
+                // 4. Completely clear the video element source
+                videoElement.srcObject = null;
+                
+                // 5. Update UI text back to "Start" if desired
+                if (stopCamBtn) {
+                    stopCamBtn.textContent = "Start Camera";
+                    stopCamBtn.style.backgroundColor = "var(--highlight: coral)";
+                }
+                
+                console.log("Camera successfully stopped.");
+            } else {
+                console.log("No active camera stream found to stop.");
             }
         }
-       // Continuously call this function to process the next incoming camera frames
-        requestAnimationFrame(scanQRCode);
+
+        // Kick off the scanning loop
+        animationFrameId = requestAnimationFrame(scanQRCode);
         
-        } catch (error) {
-            console.error("Camera access denied or unavailable:", error);
-        }
-    } else {
-        console.error("Browser does not support getUserMedia.");
+    } catch (error) {
+        console.error("Camera access denied or unavailable:", error);
     }
 }
 
@@ -124,8 +137,6 @@ function stopCamera() {
         console.log("No active camera stream found to stop.");
     }
 }
-
-
 
 // Automatically trigger the camera the absolute second the page load finishes
 const startCamBtn = document.querySelector(".startCamBtn");

@@ -16,8 +16,9 @@
     --privacyBg: #0A2F30;
     --thinWhite:#C0C0C0;
     --highlight: coral;
+    --svgColorOverlay: #00254B;
 
-    --boxShadowDark: 0px 0px 10px var(--boxShadowLight);
+    --box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.29);
     --boxShadowLight: 0px 0px 10px var(--thinBlack);
     --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
 
@@ -46,6 +47,7 @@ li, a{
 li, a, p, h1, h2, h3, button{
     color: var(--secondaryColor);
 }
+
 textarea{
     resize: none;
 }
@@ -60,6 +62,9 @@ textarea{
     margin-top: 0;
     padding-left: 10px;
     transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, margin 0.5s ease;
+    line-height: 25px;
+    font-weight: var(--fontWeight6);
+    padding-right: 20px;
 }
 
 /* This class will be added/removed by JavaScript */
@@ -200,7 +205,9 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: var(--padding);
-    box-shadow: var(--boxShadowLight);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1px
+    
 }
 
 header nav ul{
@@ -222,7 +229,7 @@ header nav ul li{
 
 .landingHero h1{
     letter-spacing: 1px;
-    line-height: 30px;
+    line-height: 45px;
     
 }
 .landingHero div{
@@ -243,7 +250,7 @@ header nav ul li{
     flex-direction: column;
     text-align: center;
     place-content: center;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.29);
+    box-shadow: var(--box-shadow);
     margin: auto;
     border-radius: var(--borderRadius);
     color:black;
@@ -286,11 +293,18 @@ header nav ul li{
     margin-top: 1rem;
     padding: var(--padding);
 }
+  
+.capContainer .capElements{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: var(--padding);
+}
 
 .capContainer div .startCamBtn,
 .capContainer div .stopCamBtn{
     cursor: pointer;
-    background-color: var(--privacyBg);
+    background-color: var(--svgColorOverlay);
     font-weight: var(--fontWeight6);
     border-radius: var(--borderRadius4);
     color:var(--primaryColor);
@@ -347,7 +361,7 @@ header nav ul li{
     cursor: pointer;
     color: white;
     padding: var(--padding);
-    background-color:  black;
+    background-color: var(--svgColorOverlay);
     display: block;
     border-radius: 5px;
 }
@@ -444,16 +458,25 @@ header nav ul li{
     background-color: var(--primaryColor);
     border-radius: var(--borderRadius);
     border: 1px solid var(--thinWhite);
-    font-weight: var(--fontWeight6);
+    place-content: center;
+    min-width: 300px;
+   
 }
 
-.howContainer figure {
+.howContainer figure img{
     text-align: center;
+    place-content: center;
+    margin: auto;
+    filter: hue-rotate(#00254B);
 }
 
 /*  Question section within the index */
 .queContainer{
     padding: var(--paddingHalf);
+}
+.queContainer h1{
+    margin-bottom: 20px;
+    padding-left: var(--paddingHalf);
 }
 
 .queContainer .questions{
@@ -468,7 +491,7 @@ header nav ul li{
     display: flex;
     justify-content: space-between;
     background-color: var(--primaryColor);
-    padding: 1rem 5px;
+    padding: 1rem 10px;
     border-radius: var(--borderRadius);
     border: 1px solid var(--thinWhite);
 }
@@ -541,7 +564,8 @@ header nav ul li{
 }
 
 .formContainer .submitBtn{
-    background-color: var(--highlight);
+    background-color: var(--svgColorOverlay);
+    color: var(--primaryColor);
     transition: 0.5s background-color;
 }
 
@@ -640,10 +664,6 @@ header nav ul li{
 .footerContainer .prodContainer .contInner {
     display: flex;
     gap: 0.5rem;
-}
-
-.footerContainer ul li a {
-    letter-spacing: 1.5px;
 }
 
 .footerContainer .prodContainer ul li a {
@@ -888,14 +908,14 @@ footer .footerDescription .socialMediaContainer i:hover{
     .main {
         flex-direction: row;
         gap: 1rem;
-        padding: var(--paddingHalf);
+        padding: var(--padding);
         justify-content: center;
         align-items: center;
         place-content: center;
     }
 
     .capContainer {
-        min-width: 500px;
+        min-width: 460px;
         max-width: 500px;
         max-height: 500px;
         margin: 0;
@@ -930,11 +950,12 @@ footer .footerDescription .socialMediaContainer i:hover{
    }
     
     .howContainer .howInner {
-       padding: 2rem;
+       padding: 1rem;
+       margin: 0;
     }
 
     .featureContainer .featureInner{
-        padding: 2rem;
+        padding: 1rem;
     }
 
     .featureContainer .featureInner .featureEle{
@@ -1017,7 +1038,7 @@ footer .footerDescription .socialMediaContainer i:hover{
     }
 
     .quickDetailContainer {
-        width: 65%;
+        width: 80%;
         margin: auto;
         
     }
@@ -1045,6 +1066,7 @@ footer .footerDescription .socialMediaContainer i:hover{
     .howContainer .howInner .howEle{
         width: 70%;
     }
+
     .howContainer .howInner.scanFromImage{
         gap: 2rem;
     }
@@ -1085,88 +1107,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 1400px) {
-
-}
-
-
-@media (prefers-color-scheme: light){
-    /* The slider */
-    .slider {
-        background-color: var(--primaryColor);
-        border: 1px solid var(--thinWhite);
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked+.slider {
-        background-color: var(--secondaryColor);
-        border: 1px solid var(--thinWhite);
-    }
-
-    input:focus+.slider {
-        box-shadow: 0 0 1px var(--secondaryColor);
-    }
-
-    html{
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-    }
-
-  
-    .landingHero{
-        background-color: var(--heroColor);
-        color: var(--highlight);
-    }
-
-    body{
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-    }
-
-    header{
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-    }
-
-    .capContainer{
-        box-shadow: var(--boxShadowLight);
-        background-color: #121315;
-    }
-
-    .capContainer .capture {
-        border: 1px solid var(--thinWhite);
-    }
-
-    .capContainer .flashlight i {
-        border: 1px solid var(--thinWhite);
-        color: var(--primaryColor);
-    }
-
-    .capContainer .previewBox {
-        color: var(--primaryColor);
-    }
-
-   .featureContainer .featureInner .featureEle .item {
-       background-color: var(--sColor);
-       color: var(--primaryColor);
-
-    }
-    
-   .featureContainer .featureInner .featureEle  {
-       background-color: var(--sColor);
-       color: var(--primaryColor);
-
-    }
 
 }
 
