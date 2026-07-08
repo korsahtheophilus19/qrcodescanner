@@ -247,7 +247,7 @@ try {
                         } else {
                             //alert("No QR code found in this image. Try a clearer picture!");
                             //window.body.appendChild("")
-                            alert("Select a Network");
+                            alert("No QR code found in this image. Try a clearer picture!");
                             const modal = document.createElement('div');
                     
                             // 2. Add your ID and Class
