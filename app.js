@@ -59,7 +59,7 @@ async function initCameraOnLoad() {
         // Request camera permissions instantly
         const stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
-                facingMode: "user" // Use "environment" if you are building a rear-facing QR scanner
+                facingMode: { ideal: "environment" }// Use "environment" if you are building a rear-facing QR scanner
             }, 
             audio: false 
         });
