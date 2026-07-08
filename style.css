@@ -22,12 +22,12 @@
     --boxShadowLight: 0px 0px 10px var(--thinBlack);
     --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
 
-    --borderRadius: 8px ;
+    --borderRadius12: 12px ;
+    --borderRadius8:8px ;
     --borderRadius4: 4px ;
     --bRadiusHalf: 50%;    
     --padding: 1rem;
     --paddingHalf: 0.5rem;
-    --marginHalf: 0.5rem;
 
     --formInputColor:#f3f2f2;
     --darkFormInputColor: #353840;
@@ -145,24 +145,94 @@ input:checked + .slider:before {
     top: -10%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--atRed);
+    background-color: var(--primaryColor);
     color: var(--flatWhite);
     z-index: 1;
     font-weight: 700;
-    border-radius: var(--border-radius);
+    border-radius: var(--borderRadius12);
     box-shadow: var(--box-shadow);
     border: none;
-    width: 300px;
+    min-width: 200px;
+    width: 90%;
+    max-width: 600px;
+    height: 30%;
     text-align: center;
-    background-color: var(--thinBlack);
+    place-content: center;
+    overflow: hidden;
 
-    animation-name: show;
+    animation-name: errorDisplay;
     animation-iteration-count: 1;
     animation-duration: .90s;
-    animation-fill-mode: backwards;
+    animation-fill-mode: forwards;
     animation-delay: 0.1s;
-
 }
+
+.modalContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: nowrap;
+}
+
+.modalContainer .openIcon i{
+    cursor: pointer;
+    gap: 1rem;
+    place-content: center;
+    text-align: center;
+    padding: var(--paddingHalf);
+    border-radius: var(--borderRadius4);
+    width: 30px;
+    height: 30px;
+}
+
+.modalContainer .openIcon i:hover{
+    background-color: var(--thinWhite);
+}
+
+.modalContainer .dataRetrived{
+    width: 100%;
+    max-width: 420px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.xIcon{ 
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+    font-size: 0.8rem;
+    top: 0px;
+    right: 0px;
+    padding: var(--padding);
+    text-align: center;
+    place-items: center;
+    
+}
+
+.addUrlBtn i,
+.xBtn i{
+    cursor: pointer;
+    transition: 0.5s ease-in-out background-color;
+    padding: var(--paddingHalf);
+    width: 30px;
+    height: 30px;
+    place-content: center;
+    text-align: center;
+}
+
+.addUrlBtn i:hover,
+.xBtn i:hover {
+    transition: 0.5s ease-in-out background-color;
+    background-color: var(--thinWhite)
+}
+
+.xBtn i:hover{ 
+    background-color: #FF0101;
+    color: var(--primaryColor);
+}
+
 
 @keyframes errorDisplay {
     0% {
@@ -194,7 +264,7 @@ input:checked + .slider:before {
     }
 
     100% {
-        top: -10%;
+        top: 50%;
     }
 
 }
@@ -252,7 +322,7 @@ header nav ul li{
     place-content: center;
     box-shadow: var(--box-shadow);
     margin: auto;
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius8);
     color:black;
     overflow: hidden;
     width: 300px;
@@ -262,7 +332,7 @@ header nav ul li{
 .capContainer .capture{
     text-align: center;
     place-content: center;
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius8);
     font-weight: var(--fontWeight6);
     border: 1px solid var(--highlight);
     object-fit: cover;
@@ -321,8 +391,8 @@ header nav ul li{
 
 .capContainer .flashlight i{
     cursor: pointer; 
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: var(--bRadiusHalf);
     border: 1px solid var(--thinBlack);
     text-align: center;
@@ -363,7 +433,8 @@ header nav ul li{
     padding: var(--padding);
     background-color: var(--svgColorOverlay);
     display: block;
-    border-radius: 5px;
+    border-radius: var(--borderRadius4);
+    margin-bottom: 15px;
 }
 
 .featureContainer{
@@ -396,7 +467,7 @@ header nav ul li{
 
 .featureContainer .featureInner .featureEle .item{
     padding: 2rem var(--paddingHalf);
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius8);
     border: 1px solid var(--thinWhite);
     background-color: var(--primaryColor);
 
@@ -456,7 +527,7 @@ header nav ul li{
 .howContainer figure{
     text-align: center;
     background-color: var(--primaryColor);
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius8);
     border: 1px solid var(--thinWhite);
     place-content: center;
     min-width: 300px;
@@ -492,7 +563,7 @@ header nav ul li{
     justify-content: space-between;
     background-color: var(--primaryColor);
     padding: 1rem 10px;
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius4);
     border: 1px solid var(--thinWhite);
 }
 
@@ -544,7 +615,7 @@ header nav ul li{
     border: 1px solid var(--sColorTrans);
     offset: none;
     padding: var(--paddingHalf);
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadius4);
     background-color: var(--formInputColor);
     font-weight: var(--fontWeight6);
     font-size: 1rem;
@@ -566,7 +637,7 @@ header nav ul li{
 .formContainer .submitBtn{
     background-color: var(--svgColorOverlay);
     color: var(--primaryColor);
-    transition: 0.5s background-color;
+    transition: 0.5s ease background-color;
 }
 
 .formContainer .submitBtn:hover{
@@ -765,14 +836,32 @@ footer .footerDescription .socialMediaContainer i:hover{
     .capContainer {
         max-width: 430px;
     }
+
+    /* modal decode qr code     */
+    .modalContainer .dataRetrived {
+        max-width: 300px;
+    }
+            
 }
 
 @media screen and (min-width: 320px) {
+    .capContainer {
+        width: 100%;
+        max-width: 320px;
+    }
+    
+}
+
+@media screen and (min-width: 390px) {
+    .capContainer {
+        width: 100%;
+        max-width: 360px;
+    }
     
 }
 
 @media screen and (min-width: 476px) {
-    
+
     .featureContainer{
         align-items: center;
     }
@@ -780,7 +869,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 
     .featureContainer .featureInner .featureEle .item{
         padding: 1rem;
-        border-radius: var(--borderRadius);
         box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
         max-width: 460px;
 
@@ -788,6 +876,16 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 578px) { 
+    .modal{
+        width: 65%;
+        height: 20%;
+    }
+
+    .modal .dataRetrived{
+        width: 75%;
+        
+    }
+
     .featureContainer .featureInner .featureEle {
         flex-direction: row;
         flex-wrap: wrap;
@@ -813,6 +911,16 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 768px) {
+
+    .main {
+        flex-direction: row;
+        gap: 1rem;
+        padding: var(--padding);
+        justify-content: center;
+        align-items: center;
+        place-content: center;
+    }
+
     .featureContainer .featureInner .featureEle {
         flex-direction: row;
         flex-wrap: wrap;
@@ -848,7 +956,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 
     .footer .footerContainer{
         flex-direction: row;
-        padding: 3rem;
         flex-wrap: wrap;
     }
     .footer .footInner{
@@ -905,17 +1012,9 @@ footer .footerDescription .socialMediaContainer i:hover{
         margin: auto;
     }
 
-    .main {
-        flex-direction: row;
-        gap: 1rem;
-        padding: var(--padding);
-        justify-content: center;
-        align-items: center;
-        place-content: center;
-    }
 
     .capContainer {
-        min-width: 460px;
+        width: 100%;
         max-width: 500px;
         max-height: 500px;
         margin: 0;
@@ -969,11 +1068,10 @@ footer .footerDescription .socialMediaContainer i:hover{
     .footer{
         margin: 2rem;
         border-radius: 70px;
-    }
-    
-    .footerContainer{
         padding: 2rem;
     }
+    
+    
     
     .footerContainer {
         flex-direction: row;
@@ -1084,25 +1182,19 @@ footer .footerDescription .socialMediaContainer i:hover{
     .featureContainer,
     .queContainer,
     .formContainer,
-    .contactHero
-    {
+    .contactHero,
+    .footer{
        width: 85%;
        max-width: 1320px;
        margin: auto;
         
     }
 
-    .footer{
-       width: 80%;
-       margin: auto;
-    }
 
-    .footerContainer{
-        padding: 5rem;
-    }
-
-    .quickDetailContainer{
+    section .quickDetailContainer{
         z-index: 100;
+        width: 85%;
+        max-width: 1320px;
     }
 }
 

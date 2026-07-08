@@ -105,6 +105,7 @@ async function initCameraOnLoad() {
                 console.log("Camera successfully stopped.");
             } else {
                 console.log("No active camera stream found to stop.");
+                
             }
         }
 
@@ -209,10 +210,44 @@ try {
                             console.log("Decoded Data:", code.data);
                             // Call your result handler function here! 
                             // e.g., displayResult(code.data);
+                            const modal = document.createElement('div');
+                    
+                            // 2. Add your ID and Class
+                            modal.id = "myModal";
+                            modal.className = "modal"; // 'active' to make it visible
+
+                            // copy Qr Code url
+                            function copyLink(){
+                                window.navigator.clipboard.write(code.data);
+                            }
+
+        
+                            // 3. Add the text/content
+                            modal.innerHTML = `
+                                <div>
+                                    <div class="xIcon">
+                                        <div class="addUrlBtn"><i class="fa-solid fa-x"     title="Add to decode histroy"></i></div>
+                                        <div class="xBtn"><i class="fa-solid fa-x"></i></div>
+                                    </div>
+
+                                    <div class="modalContainer">
+                                        <p class="dataRetrived" title="${code.data}">${code.data}</p>
+                                        <div class="openIcon">
+                                            <i class="fa-solid fa-copy" title="Copy" onclick="copyLink()">
+                                            </i>
+                                            <i class="fa-solid fa-share" title="Share"></i>
+                                            
+                                        </div>
+                                    </div
+                                </div>
+                            `;
+        
+                            // 4. IMPORTANT: Append it so it sits ON TOP of the content
+                            return document.body.appendChild(modal);
                         } else {
                             //alert("No QR code found in this image. Try a clearer picture!");
                             //window.body.appendChild("")
-                             //alert("Select a Network");
+                            alert("Select a Network");
                             const modal = document.createElement('div');
                     
                             // 2. Add your ID and Class
@@ -221,7 +256,7 @@ try {
                             
                             // 3. Add the text/content
                             modal.innerHTML = `
-                                <div class="modal-content">
+                                <div class="modal">
                                     No QR code found in this image. Try a clearer picture!
                                 </div>
                             `;
