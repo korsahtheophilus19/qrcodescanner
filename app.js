@@ -3,6 +3,13 @@
 const icons = document.querySelectorAll('.queItem i');
 const questions = document.querySelectorAll('.queItem h3');
 
+const startCamBtn = document.querySelector(".startCamBtn");
+const stopCamBtn = document.querySelector(".stopCamBtn");
+
+const imageBtn = document.querySelector(".imageBtn");
+
+
+
 // Loop through each icon and attach the click event
 icons.forEach(icon => {
     icon.addEventListener('click', function() {
@@ -20,6 +27,7 @@ icons.forEach(icon => {
         this.style.transition = 'transform 0.5s ease';
     });
 });
+
 questions.forEach(question => {
     question.addEventListener('click', function() {
         // Find the closest parent container (.qEle) 
@@ -45,6 +53,7 @@ questions.forEach(question => {
 // Function to start the webcam stream inside your .capture container
 
 const videoElement = document.getElementById('webcam');
+
 // Keep track of the animation frame ID globally or at a higher scope so we can stop it
 let animationFrameId = null;
 
@@ -59,7 +68,7 @@ async function initCameraOnLoad() {
         // Request camera permissions instantly
         const stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
-                facingMode: { ideal: "environment" }// Use "environment" if you are building a rear-facing QR scanner
+                facingMode: { exact: "environment" } // Use "environment" if you are building a rear-facing QR scanner
             }, 
             audio: false 
         });
@@ -73,41 +82,10 @@ async function initCameraOnLoad() {
             stopCamBtn.textContent = "Stop Camera";
             
             // Remove any old listener just in case, then attach the stop function
-            stopCamBtn.removeEventListener("click", stopCamera);
+            //stopCamBtn.removeEventListener("click", stopCamera);
             stopCamBtn.addEventListener("click", stopCamera);
         }
 
-        // Function to turn OFF the camera
-        function stopCamera() {
-            if (videoElement && videoElement.srcObject) {
-                // 1. Cancel the ongoing QR scanning animation loop
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId);
-                    animationFrameId = null;
-                }
-
-                // 2. Get the active MediaStream from the video element's srcObject
-                const stream = videoElement.srcObject;
-
-                // 3. Loop through them and shut down the hardware connection
-                const tracks = stream.getTracks();
-                tracks.forEach(track => track.stop());
-
-                // 4. Completely clear the video element source
-                videoElement.srcObject = null;
-                
-                // 5. Update UI text back to "Start" if desired
-                if (stopCamBtn) {
-                    stopCamBtn.textContent = "Start Camera";
-                    stopCamBtn.style.backgroundColor = "var(--highlight: coral)";
-                }
-                
-                console.log("Camera successfully stopped.");
-            } else {
-                console.log("No active camera stream found to stop.");
-                
-            }
-        }
 
         // Kick off the scanning loop
         animationFrameId = requestAnimationFrame(scanQRCode);
@@ -139,16 +117,272 @@ function stopCamera() {
     }
 }
 
-// Automatically trigger the camera the absolute second the page load finishes
-const startCamBtn = document.querySelector(".startCamBtn");
-const stopCamBtn = document.querySelector(".stopCamBtn");
+// Function to turn off the scanner
+function scanQRCode(){
+    const reader = new FileReader();
 
-const imageBtn = document.querySelector(".imageBtn");
-//.addEventListener("click", selectImage)
+    reader.onload = function(e) {
+    const videoElement = new videoElement();
+    videoElement.onload = function() {
+        // Create an off-screen canvas
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Scale management: Helps keep heavy phone camera pixels optimized
+        const MAX_WIDTH = 800;
+        let width = videoElement.width;
+        let height = videoElement.height;
+
+        if (width > MAX_WIDTH) {
+            height = Math.round((height * MAX_WIDTH) / width);
+            width = MAX_WIDTH;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw image onto the canvas
+        ctx.drawImage(videoElement, 0, 0, width, height);
+        
+        // Extract the image pixel data
+        const videoData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        console.log(videoData)
+        // Pass the data to the jsQR decoder
+        const code = jsQR(videoData.data, videoData.width, videoData.height);
+        
+        if (code) {
+            console.log("Decoded Data:", code.data);
+            // Call your result handler function here! 
+            // e.g., displayResult(code.data);
+            const modal = document.createElement('div');
+
+            // 2. Add your ID and Class
+            
+            modal.className = "modal"; // 'active' to make it visible
+
+            // 3. Add the text/content
+            modal.innerHTML = `
+                <div>
+                    <div class="xIcon">
+                        <div class="addUrlBtn"><i class="fa-solid fa-x"     title="Add to decode histroy"></i></div>
+                        <div class="xBtn"><i id="closeBtn" class="fa-solid fa-x"></i></div>
+                    </div>
+
+                    <div class="modalContainer">
+                        <p class="dataRetrived" title="${code.data}">${code.data}</p>
+                        <div class="openIcon">
+                            <i class="fa-solid fa-copy" title="Copy" onclick="copyLink()">
+                            </i>
+                            <i class="fa-solid fa-share" title="Share"></i>
+                            
+                        </div>
+                    </div
+                </div>
+            `;
+
+        // 4. IMPORTANT: Append it so it sits ON TOP of the content
+        document.body.appendChild(modal);
+
+                                
+        if (false) {
+            document.getElementById("closeBtn").addEventListener("click", () =>{
+            modal.classList.remove("noDisplay");
+        })
+        } else {
+            document.getElementById("closeBtn").addEventListener("click", () =>{
+            modal.classList.add("noDisplay");
+        })}
+        } else {
+            //alert("No QR code found in this image. Try a clearer picture!");
+            const modal = document.createElement('div');
+
+            // 2. Add your ID and Class
+            modal.id = "myModal";
+            modal.className = "modal"; // 'active' to make it visible
+            
+            // 3. Add the text/content
+            modal.innerHTML = `
+                <div>
+                    <div class="xIcon">
+                        <div class="xBtn" id="closeBtn"><i class="fa-solid fa-x"></i></div>
+                    </div>
+                    <div class="modalContainer">
+                        <p>No QR code found in this image. Try a clearer picture!</p>
+                    </div
+                </div>
+            `;
+
+            // 4. IMPORTANT: Append it so it sits ON TOP of the content
+            
+            document.body.appendChild(modal);
+            
+            imageBtn.style.display = "block"; // Bring back button if it failed
+        }
+    };
+        img.src = e.target.result;
+    };
+
+
+}
+
 
 startCamBtn.addEventListener('click', initCameraOnLoad);
 stopCamBtn.addEventListener('click', stopCamera);
 
+
+// try {
+//     function selectImage() {
+//         // 1. Create a hidden HTML input element of type "file"
+//         const fileInput = document.createElement("input");
+//         fileInput.type = "file";
+//         fileInput.accept = "image/*"; // Restrict selection to image files only
+
+//         // 2. Listen for when the user successfully selects a file
+//         fileInput.onchange = function (event) {
+//             const file = event.target.files[0]; // Get the first selected file
+            
+//             if (file) {
+//                 // --- VISUAL PREVIEW LOGIC ---
+//                 const imageUrl = URL.createObjectURL(file);
+//                 const previewBox = document.querySelector(".previewBox");
+//                 previewBox.innerHTML = ``; // Clear previous container contents
+                
+//                 const previewImg = document.createElement("img");
+//                 previewImg.src = imageUrl;
+                
+//                 previewBox.appendChild(previewImg);
+//                 previewBox.classList.add("previewBox");
+//                 //imageBtn.style.display = "none"; // Hide button after selection
+
+//                 // --- DECODING LOGIC (The Missing Link Fix) ---
+//                 const reader = new FileReader();
+                
+//                 reader.onload = function(e) {
+//                     const img = new Image();
+//                     img.onload = function() {
+//                         // Create an off-screen canvas
+//                         const canvas = document.createElement('canvas');
+//                         const ctx = canvas.getContext('2d');
+                        
+//                         // Scale management: Helps keep heavy phone camera pixels optimized
+//                         const MAX_WIDTH = 800;
+//                         let width = img.width;
+//                         let height = img.height;
+
+//                         if (width > MAX_WIDTH) {
+//                             height = Math.round((height * MAX_WIDTH) / width);
+//                             width = MAX_WIDTH;
+//                         }
+
+//                         canvas.width = width;
+//                         canvas.height = height;
+                        
+//                         // Draw image onto the canvas
+//                         ctx.drawImage(img, 0, 0, width, height);
+                        
+//                         // Extract the image pixel data
+//                         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+//                         console.log(imageData)
+//                         // Pass the data to the jsQR decoder
+//                         const code = jsQR(imageData.data, imageData.width, imageData.height);
+                        
+//                         if (code) {
+//                             console.log("Decoded Data:", code.data);
+//                             // Call your result handler function here! 
+//                             // e.g., displayResult(code.data);
+//                             const modal = document.createElement('div');
+                    
+//                             // 2. Add your ID and Class
+                            
+//                             modal.className = "modal"; // 'active' to make it visible
+
+//                             // 3. Add the text/content
+//                             modal.innerHTML = `
+//                                 <div>
+//                                     <div class="xIcon">
+//                                         <div class="addUrlBtn"><i class="fa-solid fa-x"     title="Add to decode histroy"></i></div>
+//                                         <div class="xBtn"><i id="closeBtn" class="fa-solid fa-x"></i></div>
+//                                     </div>
+
+//                                     <div class="modalContainer">
+//                                         <p class="dataRetrived" title="${code.data}">${code.data}</p>
+//                                         <div class="openIcon">
+//                                             <i class="fa-solid fa-copy" title="Copy" onclick="copyLink()">
+//                                             </i>
+//                                             <i class="fa-solid fa-share" title="Share"></i>
+                                            
+//                                         </div>
+//                                     </div
+//                                 </div>
+//                             `;
+        
+//                         // 4. IMPORTANT: Append it so it sits ON TOP of the content
+//                         document.body.appendChild(modal);
+
+                                                
+//                         if (false) {
+//                             document.getElementById("closeBtn").addEventListener("click", () =>{
+//                             modal.remove("noDisplay");
+//                         })
+//                         } else {
+//                             document.getElementById("closeBtn").addEventListener("click", () =>{
+//                             modal.classList.add("noDisplay");
+//                         })}
+
+//                         } else {
+//                             //alert("No QR code found in this image. Try a clearer picture!");
+//                             const modal = document.createElement('div');
+                    
+//                             // 2. Add your ID and Class
+//                             modal.id = "myModal";
+//                             modal.className = "modal"; // 'active' to make it visible
+                            
+//                             // 3. Add the text/content
+//                             modal.innerHTML = `
+//                                 <div>
+//                                     <div class="xIcon">
+//                                         <div class="xBtn" id="closeBtn"><i class="fa-solid fa-x"></i></div>
+//                                     </div>
+//                                     <div class="modalContainer">
+//                                         <p>No QR code found in this image. Try a clearer picture!</p>
+//                                     </div
+//                                 </div>
+//                             `;
+
+//                             // 4. IMPORTANT: Append it so it sits ON TOP of the content
+                            
+//                             document.body.appendChild(modal);
+
+//                             // This handle the close button of the modal
+//                             if (false) {
+//                                 document.getElementById("closeBtn").addEventListener("click", () =>{
+//                                 modal.classList.remove("noDisplay");
+//                             })
+//                             } else {
+//                                 document.getElementById("closeBtn").addEventListener("click", () =>{
+//                                 modal.classList.add("noDisplay");
+//                             })}
+                                
+//                                 imageBtn.style.display = "block"; // Bring back button if it failed
+//                             }
+//                     };
+//                     img.src = e.target.result;
+//                 };
+
+//                 // CRITICAL: This fires off the reader and kicks off the onload chain above!
+//                 reader.readAsDataURL(file);
+//             }
+//         };
+
+//         // 3. Programmatically "click" the hidden input to open the file dialog
+//         fileInput.click();
+//     }
+
+//     imageBtn.addEventListener('click', selectImage);
+
+// } catch (error) {
+//     console.error("An error occurred during selection / decoding:", error);
+// }
 
 try {
     function selectImage() {
@@ -172,7 +406,6 @@ try {
                 
                 previewBox.appendChild(previewImg);
                 previewBox.classList.add("previewBox");
-                //imageBtn.style.display = "none"; // Hide button after selection
 
                 // --- DECODING LOGIC (The Missing Link Fix) ---
                 const reader = new FileReader();
@@ -202,70 +435,79 @@ try {
                         
                         // Extract the image pixel data
                         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        console.log(imageData)
+                        console.log(imageData);
+                        
                         // Pass the data to the jsQR decoder
                         const code = jsQR(imageData.data, imageData.width, imageData.height);
                         
                         if (code) {
                             console.log("Decoded Data:", code.data);
-                            // Call your result handler function here! 
-                            // e.g., displayResult(code.data);
+                            
                             const modal = document.createElement('div');
-                    
-                            // 2. Add your ID and Class
-                            modal.id = "myModal";
-                            modal.className = "modal"; // 'active' to make it visible
+                            modal.className = "modal"; 
 
-                            // copy Qr Code url
-                            function copyLink(){
-                                window.navigator.clipboard.write(code.data);
-                            }
-
-        
-                            // 3. Add the text/content
+                            // Fixed broken </div tag at the end of modalContainer
                             modal.innerHTML = `
                                 <div>
                                     <div class="xIcon">
-                                        <div class="addUrlBtn"><i class="fa-solid fa-x"     title="Add to decode histroy"></i></div>
-                                        <div class="xBtn"><i class="fa-solid fa-x"></i></div>
+                                        <div class="addUrlBtn"><i class="fa-solid fa-x" title="Add to decode history"></i></div>
+                                        <div class="xBtn"><i class="close-trigger fa-solid fa-x"></i></div>
                                     </div>
 
                                     <div class="modalContainer">
                                         <p class="dataRetrived" title="${code.data}">${code.data}</p>
                                         <div class="openIcon">
-                                            <i class="fa-solid fa-copy" title="Copy" onclick="copyLink()">
-                                            </i>
+                                            <i class="fa-solid fa-copy" title="Copy" onclick="copyLink()"></i>
                                             <i class="fa-solid fa-share" title="Share"></i>
-                                            
                                         </div>
-                                    </div
+                                    </div>
                                 </div>
                             `;
         
-                            // 4. IMPORTANT: Append it so it sits ON TOP of the content
-                            return document.body.appendChild(modal);
+                            // Append modal to body
+                            document.body.appendChild(modal);
+
+                            // FIX: Query the close button LOCALLY inside this specific modal instance
+                            // We use a class '.close-trigger' to avoid ID collision entirely
+                            const closeBtn = modal.querySelector(".close-trigger");
+                            if (closeBtn) {
+                                closeBtn.addEventListener("click", () => {
+                                    modal.classList.add("noDisplay");
+                                    // Clean up memory: Remove the modal completely from DOM if you're done with it
+                                    modal.remove(); 
+                                });
+                            }
+
                         } else {
-                            //alert("No QR code found in this image. Try a clearer picture!");
-                            //window.body.appendChild("")
-                            alert("No QR code found in this image. Try a clearer picture!");
                             const modal = document.createElement('div');
-                    
-                            // 2. Add your ID and Class
-                            modal.id = "myModal";
-                            modal.className = "modal"; // 'active' to make it visible
+                            modal.className = "modal"; 
                             
-                            // 3. Add the text/content
+                            // Fixed broken </div tag at the end of modalContainer
                             modal.innerHTML = `
-                                <div class="modal">
-                                    No QR code found in this image. Try a clearer picture!
+                                <div>
+                                    <div class="xIcon">
+                                        <div class="xBtn"><i class="close-trigger fa-solid fa-x"></i></div>
+                                    </div>
+                                    <div class="modalContainer">
+                                        <p>No QR code found in this image. Try a clearer picture!</p>
+                                    </div>
                                 </div>
                             `;
 
-                            // 4. IMPORTANT: Append it so it sits ON TOP of the content
                             document.body.appendChild(modal);
-                            
-                            return;
-                            imageBtn.style.display = "block"; // Bring back button if it failed
+
+                            // FIX: Query the close button LOCALLY inside this specific error modal
+                            const closeBtn = modal.querySelector(".close-trigger");
+                            if (closeBtn) {
+                                closeBtn.addEventListener("click", () => {
+                                    modal.classList.add("noDisplay");
+                                    modal.remove(); // Removes it from the DOM to avoid bloating your HTML
+                                });
+                            }
+                                
+                            if (typeof imageBtn !== 'undefined') {
+                                imageBtn.style.display = "block"; 
+                            }
                         }
                     };
                     img.src = e.target.result;
@@ -280,10 +522,12 @@ try {
         fileInput.click();
     }
 
-    imageBtn.addEventListener('click', selectImage);
+    if (typeof imageBtn !== 'undefined') {
+        imageBtn.addEventListener('click', selectImage);
+    }
 
 } catch (error) {
-    console.error("An error occurred during selection/decoding:", error);
+    console.error("An error occurred during selection / decoding:", error);
 }
 
 // start flashlight when the camera is working
@@ -304,55 +548,4 @@ try {
 } catch (error) {
     
 }
-
-
-
-
-
-// function handleImageUpload(event) {
-//   const file = event.target.files[0];
-//   if (!file) return;
-
-//   const reader = new FileReader();
-  
-//   reader.onload = function(e) {
-//     const img = new Image();
-//     img.onload = function() {
-//       // 1. Create an off-screen canvas
-//       const canvas = document.createElement('canvas');
-//       const ctx = canvas.getContext('2d');
-      
-//       canvas.width = img.width;
-//       canvas.height = img.height;
-      
-//       // 2. Draw the image onto the canvas
-//       ctx.drawImage(img, 0, 0, img.width, img.height);
-      
-//       // 3. Extract the image pixel data
-//       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      
-//       // 4. Pass the data to the jsQR decoder
-//       const code = jsQR(imageData.data, imageData.width, imageData.height);
-      
-//       if (code) {
-//         displayResult(code.data);
-//       } else {
-//         alert("No QR code found in this image. Try a clearer picture!");
-//       }
-//     };
-//     img.src = e.target.result;
-//   };
-  
-//   reader.readAsDataURL(file);
-// }
-
-// function displayResult(text) {
-//   const output = document.getElementById('result-display');
-//   // Check if text is a URL
-//   if (text.startsWith('http://') || text.startsWith('https://')) {
-//     output.innerHTML = `<a href="${text}" target="_blank" class="result-btn">Open Link: ${text}</a>`;
-//   } else {
-//     output.innerHTML = `<div class="result-text"><p>${text}</p><button onclick="navigator.clipboard.writeText('${text}')">Copy</button></div>`;
-//   }
-// }
 

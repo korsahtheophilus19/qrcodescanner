@@ -20,7 +20,7 @@
 
     --box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.29);
     --boxShadowLight: 0px 0px 10px var(--thinBlack);
-    --containerShadow: 0px 0px 2px rgba(0, 0, 0, 0.247);
+    --containerShadow: 0px 0px 50px rgba(0, 0, 0, 0.29);
 
     --borderRadius12: 12px ;
     --borderRadius8:8px ;
@@ -31,11 +31,13 @@
 
     --formInputColor:#f3f2f2;
     --darkFormInputColor: #353840;
-    --thinBlack:#41444D;
+    --thinBlack:#1F1F1F;
     
 }
 
-
+.noDisplay{
+    display: none;
+}
 img{
     display: block;
 }
@@ -104,39 +106,39 @@ textarea{
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 input:checked + .slider {
-  background-color:var(--secondaryColor);
+    background-color:var(--secondaryColor);
     border: 1px solid var(--thinWhite);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--secondaryColor);
+    box-shadow: 0 0 1px var(--secondaryColor);
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }
 
 .modal {
@@ -353,7 +355,7 @@ header nav ul li{
     height: 400px;
     overflow: hidden;
     object-fit: cover; /* Crops video to fill container without stretching */
-    transform: scaleX(-1); /* Mirrors the stream for a natural selfie/viewing experience */
+    /*transform: scaleX(-1);  Mirrors the stream for a natural selfie/viewing experience */
     
 }
   
@@ -445,7 +447,6 @@ header nav ul li{
 }
 
 .featureContainer h1{
-    text-align: center;
     font-size: 2.25rem;
     margin-top: 1rem;
 }
@@ -500,15 +501,20 @@ header nav ul li{
 }
 
 .howContainer .howInner .howEle div {
-   margin-top:var(--marginHalf);
+   margin-top: var(--paddingHalf);
    gap: 1rem;
 }
+
 .howContainer .howInner .howEle div p{
    line-height: 25px;
 }
 
+.howContainer .howInner .howEle div .howItWorks {
+    margin-top: 1rem;
+}
+
 .howContainer .howInner .howEle div ul li{
-   margin-top:var(--marginHalf);
+   margin-top: 1rem;
    gap: 1rem;
 }
 
@@ -531,6 +537,7 @@ header nav ul li{
     border: 1px solid var(--thinWhite);
     place-content: center;
     min-width: 300px;
+
    
 }
 
@@ -538,7 +545,6 @@ header nav ul li{
     text-align: center;
     place-content: center;
     margin: auto;
-    filter: hue-rotate(#00254B);
 }
 
 /*  Question section within the index */
@@ -546,8 +552,7 @@ header nav ul li{
     padding: var(--paddingHalf);
 }
 .queContainer h1{
-    margin-bottom: 20px;
-    padding-left: var(--paddingHalf);
+    margin-bottom: 2rem;
 }
 
 .queContainer .questions{
@@ -563,7 +568,7 @@ header nav ul li{
     justify-content: space-between;
     background-color: var(--primaryColor);
     padding: 1rem 10px;
-    border-radius: var(--borderRadius4);
+    border-radius: var(--borderRadius8);
     border: 1px solid var(--thinWhite);
 }
 
@@ -681,10 +686,10 @@ header nav ul li{
 /* footer section */
 .footer {
 
-    border-top: 1px solid var(--thinBlack);
-    border-left: 1px solid var(--thinBlack);
-    border-right: 1px solid var(--thinBlack);
-    border-bottom: 1px solid var(--thinBlack);
+    border-top: 1px solid var(--thinWhite);
+    border-left: 1px solid var(--thinWhite);
+    border-right: 1px solid var(--thinWhite);
+    border-bottom: 1px solid var(--thinWhite);
     margin: 0.6rem;
 
     border-top-left-radius: 15px;
@@ -734,7 +739,14 @@ header nav ul li{
 /* this is for contact section within the footer section */
 .footerContainer .prodContainer .contInner {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 0.5rem;
+}
+
+/* this is for contact section within the footer section */
+.footerContainer .prodContainer .contInner li{
+    padding-left: var(--paddingHalf);
 }
 
 .footerContainer .prodContainer ul li a {
@@ -781,14 +793,17 @@ footer .footerDescription ul {
     gap: 1rem;
 }
 
-footer .footerDescription ul li a{
+/* THIS IS FOR FOOTER SECTION OF INDEX AND CONTACT  */
+footer .footerDescription ul li a,
+.footerContact div ul li a{
     text-decoration: none;
     color: inherit;
     transition: 0.5s ease color;
     
 }
 
-footer .footerDescription ul li a:hover{
+footer .footerDescription ul li a:hover,
+.footerContact div ul li a:hover{
     transition: 0.5s ease color;
     color: var(--highlight);
 }
@@ -819,18 +834,75 @@ footer .footerDescription .socialMediaContainer i:hover{
     
 }
 
-.footerContact div ul li a{
-    text-decoration: underline;
-    color: var(--secondaryColor);
-    transition: 0.5s ease color, 9.3s ease-in-out text-decoration;
+/* THIS IS FOR PRIVACY POLICIES AND TERMS OF USE  */
+.privacyContainer{
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding);
 }
 
-.footerContact div ul li a:hover{
-    color: var(--highlight);
-        transition: 0.5s ease color, 9.3s ease-in-out text-decoration;
-    text-decoration: none;
+.privacyContainer .pAdminContainer{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
+.privacyContainer .pAdminContainer figure{
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    place-content: center;
+
+}
+
+.privacyContainer .pAdminContainer figure img{
+    border-radius: var(--bRadiusHalf);
+
+}
+
+.privacyContainer .pAdminContainer p{
+    color: var(--thinWhite);
+}
+
+.privacyContainer .privacyHero li a{
+    color: var(--primaryColor);
+}
+
+.privacyContainer .privacyContent p,
+.privacyContainer .privacyContent li,
+.privacyContainer .privacyContent i{
+    color: var(--darkFormInputColor)  !important;
+}
+
+.privacyContainer .privacyContent .privacyHero div{
+    display: flex;   
+    gap: 1rem;
+    margin-top: var(--paddingHalf);
+    margin-bottom: var(--paddingHalf);
+    
+}
+
+.privacyContent .privacyHero h1,
+.privacyContent h2{
+    margin-top: var(--paddingHalf);
+    margin-bottom: var(--paddingHalf);
+}
+
+.privacyContent .privacyHero p{
+    margin-bottom: var(--paddingHalf);
+}
+
+.privacyContainer .privacyContent .privacyHero div li{
+    padding: var(--paddingHalf) 5px var(--paddingHalf) ;
+    background-color: var(--svgColorOverlay);
+    color: var(--primaryColor);
+    
+}
+
+.privacyContainer .privacyContent p{
+    color: var(--thinBlack);
+}
 
 @media screen and (min-width: 300px) {
     .capContainer {
@@ -896,10 +968,6 @@ footer .footerDescription .socialMediaContainer i:hover{
     .featureContainer .featureInner .featureEle .item{
        width: 48%;
        max-height: 150px;
-    }
-
-    .howContainer .howInner {
-        
     }
 
     .footInner{
@@ -1007,11 +1075,17 @@ footer .footerDescription .socialMediaContainer i:hover{
     header{
         padding: 1rem;
     }
+
     .landingHero{
         padding: 10rem;
         margin: auto;
     }
 
+    .landingHero p{
+        padding: 1rem;
+        margin: auto;
+        width: 70%;
+    }
 
     .capContainer {
         width: 100%;
@@ -1071,8 +1145,6 @@ footer .footerDescription .socialMediaContainer i:hover{
         padding: 2rem;
     }
     
-    
-    
     .footerContainer {
         flex-direction: row;
         justify-content: space-evenly;
@@ -1093,7 +1165,7 @@ footer .footerDescription .socialMediaContainer i:hover{
     }
 
     .contactHero h1{
-        font-size: 2.rem;
+        font-size: 2rem;
     }
 
     .contactHero,
@@ -1140,19 +1212,29 @@ footer .footerDescription .socialMediaContainer i:hover{
         margin: auto;
         
     }
-    .quickDetailContainer h3{
-       
+
+    /* THIS IS FOR PRIVACY AND TERMS PAGE */
+    .privacyContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: start;
+        gap: 1rem;
+        align-items: flex-start;
+        margin: auto;
+        width: 80%;
     }
 
-    .quickDetailContainer .quickCallService {
-        
+    .privacyContainer .pAdminContainer {
+        margin-top: 8px;
+        margin-bottom: 0;
+    }
+    
+    .privacyContent .privacyHero h1{
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
-    .formContainer .submitBtn {
-      
-    }
-
-   
 }
 
 @media screen and (min-width: 1024px) {
@@ -1171,6 +1253,7 @@ footer .footerDescription .socialMediaContainer i:hover{
 }
 
 @media screen and (min-width: 1200px) {
+    .featureContainer .featureInner h1,
     h1{
         font-size: 3rem;
     }
@@ -1190,7 +1273,6 @@ footer .footerDescription .socialMediaContainer i:hover{
         
     }
 
-
     section .quickDetailContainer{
         z-index: 100;
         width: 85%;
@@ -1202,10 +1284,238 @@ footer .footerDescription .socialMediaContainer i:hover{
 
 }
 
+@media (prefers-color-scheme: light) {
+
+    /* The slider */
+    .slider {
+        background-color: var(--primaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: var(--secondaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px var(--secondaryColor);
+    }
+
+    html {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        transition: 0.5s ease;
+    }
 
 
+    .landingHero{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+    }
+
+    .landingHero h1{
+        color: var(--primaryColor);
+    }
+
+    .landingHero p{
+        color: var(--thinWhite);
+    }
+
+    body {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        transition: 0.5s ease;
+    }
+
+    header {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    .capContainer {
+        box-shadow: var(--box-shadow);
+        background-color: #121315;
+    }
+
+    .capContainer .capture {
+        border: 1px solid var(--thinWhite);
+    }
+
+    .capContainer .flashlight i {
+        border-color: var(--thinWhite);
+        color: var(--primaryColor);
+    }
+
+    .capContainer .previewBox {
+        color: var(--primaryColor);
+    }
+
+    .featureContainer h1 {
+        color: var(--primaryColor);
+
+    }
+    .featureContainer .featureInner .featureEle {
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item {
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item h3{
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item p{
+        color: var(--thinWhite);
+
+    }
+
+    .howContainer{
+        background-color: var(--svgColorOverlay);
+    }
+
+    .howContainer .howEle h1,
+    .howContainer .howEle h3{
+        color: var(--primaryColor);
+    }
+
+    .howContainer .howEle p{
+        color: var(--thinWhite);
+    }
+
+    .howContainer .howEle ul li{
+        color: var(--thinWhite);
+    }
+
+    .howContainer .howInner figure{
+        background-color: var(--primaryColor);
+        border-color: var(--secondaryColor);
+    }
+
+    .howContainer{
+        color: var(--primaryColor);
+    }
+
+    .queContainer h1{
+        color: var(--primaryColor);
+    }
+    .queContainer .queItem{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+    }
+
+    .queContainer .queItem h3{
+        color: var(--primaryColor);
+    }
+
+    .queContainer .faqAnswer{
+        color: var(--thinWhite);
+    }
+
+    /* footer section */
+    .footer {
+        border-top: 1px solid var(--thinBlack);
+        border-left: 1px solid var(--thinBlack);
+        border-right: 1px solid var(--thinBlack);
+        border-bottom: 1px solid var(--thinBlack);
+    }
+
+    .footer h3{
+        color: var(--primaryColor);
+    }
+
+    .footer .footerContainer p{
+        color:var(--thinWhite);
+    }
+
+    .footer .footerContainer .prodContainer li,
+    .footer .footerContainer .prodContainer p,
+    .footer .footerContainer .prodContainer a{
+        color: var(--thinWhite);
+    }
+
+    .footer .footerContainer li,
+    .footer .footerDescription li a,
+    .footer .contInner a{
+        color: var(--thinWhite);
+    }
+    .footer a{
+        color: var(--thinWhite);
+    }
 
 
+    /* THIS IS FOR CONTACT PAGE THEME STYLING */
+    .formContainer h1,
+    .contactHero h1{
+        color: var(--primaryColor);
+    }
+
+
+    .formContainer input,
+    .formContainer textarea{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+        border-color: var(--thinWhite);
+    }
+    .formContainer .submitBtn{
+        border: none;
+    }
+
+    .formContainer p,
+    .contactHero p{
+        color: var(--thinWhite);
+    }
+
+    .quickDetailContainer .quickHeading h3{
+        color: var(--primaryColor);
+    }
+
+    .quickDetailContainer p,
+    .quickDetailContainer li{
+        color: var(--primaryColor);
+    }
+
+    .footerContact div ul a{
+        color: var(--thinWhite);
+    }
+    /* it handle the dark theme for privacy */
+    .privacyContainer h2,
+    .privacyContainer h3,
+    .privacyContent .privacyHero h1 {
+        color: var(--primaryColor);
+    }
+
+    .privacyContainer .privacyContent p,
+    .privacyContainer .privacyContent li,
+    .privacyContainer .privacyContent i {
+        color: var(--thinWhite) !important;
+    }
+
+    .footerContact ul li a {
+        color: var(--thinWhite) !important;
+    }
+
+    .footerContact ul li a:hover {
+        color: var(--highlight      ) !important;
+    }
+}
 
 
 
