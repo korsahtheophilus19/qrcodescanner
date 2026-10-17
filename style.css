@@ -278,7 +278,12 @@ header{
     align-items: center;
     padding: var(--padding);
     box-shadow: var(--box-shadow);
-    margin-bottom: 1px
+    margin-bottom: 1px;
+    
+}
+
+header figure img{
+    cursor: pointer;
     
 }
 
@@ -399,6 +404,7 @@ header nav ul li{
     border: 1px solid var(--thinBlack);
     text-align: center;
     place-content: center;
+    padding: var(--paddingHalf);
 }
 
 /* this is for selecting image section in the home page*/
@@ -407,6 +413,7 @@ header nav ul li{
     min-width: 300px;
     max-width: 600px;
     height: 400px;
+    max-width: 400px;
     object-fit: cover;
     text-align: center;
     place-content: center;
@@ -904,6 +911,93 @@ footer .footerDescription .socialMediaContainer i:hover{
     color: var(--thinBlack);
 }
 
+/* GENERATE QR CODE INSTEAD THIS IS OTHER FULL FEATURE PLATFORM */
+.generateMain{
+    place-content: center;
+    text-align: center;
+    margin: var(--paddingHalf) auto;
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0.6rem;
+}
+
+.generateMain div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+}
+
+.generateMain .compProfile{
+    background-color: var(--svgColorOverlay);
+    width: 100%;
+}
+
+.generateMain .compProfile h1{
+    color: var(--primaryColor);
+    margin-top: var(--paddingHalf);
+    margin-bottom: var(--paddingHalf);
+}
+
+.generateMain .compProfile p{
+    color: var(--thinWhite);
+    margin-bottom: var(--paddingHalf);
+
+}
+
+.generateMain .generateContainer{
+    gap: 1rem;
+}
+
+.generateMain .converterContainer{
+    width: 100%;
+    
+}
+
+.generateMain .converterContainer form{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: var(--padding);
+    
+}
+
+.generateMain .converterContainer form input{
+    padding: var(--padding);
+    width: 90%;
+    height: 60px;
+    border: 1px solid var(--thinBlack);
+    border-radius: 4px;
+    outline: none;
+    offset: none;
+    transition: 0.3s ease border;
+}
+
+.generateMain .converterContainer form input:focus,
+.generateMain .converterContainer form input:active{
+    border: 1px solid var(--highlight);
+    transition: 0.3s ease border;
+
+}
+
+.generateMain .converterContainer form button{
+    height: 60px;
+    padding: var(--padding);
+    border-radius: 4px;
+    border: none;
+    background-color: var(--svgColorOverlay);
+    color: var(--primaryColor);
+    transition: 0.3s ease border;
+}
+
+.generateMain .converterContainer form button:hover{  
+    filter: brightness(1.3);
+    transition: 0.3s ease border, 0.5s ease filter;
+}
+
 @media screen and (min-width: 300px) {
     .capContainer {
         max-width: 430px;
@@ -1188,6 +1282,7 @@ footer .footerDescription .socialMediaContainer i:hover{
     .formContainer textarea{
        font-size: 1.25rem;
     }
+    
     .formContainer .formInner input:first-child{
         width: 50%;
         padding: 2rem;
@@ -1262,6 +1357,7 @@ footer .footerDescription .socialMediaContainer i:hover{
     }
     
     .howContainer .howInner,
+    .generateMain,
     .featureContainer,
     .queContainer,
     .formContainer,

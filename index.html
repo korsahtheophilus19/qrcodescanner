@@ -26,13 +26,13 @@
     <header>
 
         <figure>
-            <img src="./WOMEN'S HARVESTS.jpg" alt="Logo" srcset="" width="45" height="auto">
+            <img src="./WOMEN'S HARVESTS.jpg" alt="Logo" srcset="" width="45" height="auto" class="root" title="Go to Home">
         </figure>
 
         <nav>
             <!-- Rounded switch -->
             <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" class="themeBtn">
             <span class="slider round"></span>
             </label>
         </nav>
@@ -49,20 +49,19 @@
     <br>
     <br>
     
-    
     <!-- capture section -->
     <section class="main">
-        <section class="capContainer">
+        <section class="capContainer" id="scanFromImage">
             <div class="capture">
                 <video id="webcam" autoplay playsinline></video>
                 <!-- <div id="previewBox" class="image-container">No image uploaded yet</div> -->
             </div>
 
-            <div class="capElements">
+            <div class="capElements" >
                 <div class="startCamBtn">Start Camera</div><!-- this is button to access image on the device -->
 
                 <div class="stopCamBtn">
-                    <i class="fa-solid fa-camera"></i>
+                    <i class="fa-solid fa-video-slash"></i>
                 </div><!-- this is button to access image on the device -->
 
                 <div class="flashlight">
@@ -266,16 +265,6 @@
                     🔒 next to the URL address bar in your browser, change the Camera setting to "Allow", and refresh the page. </p>
                 </div>
 
-                <div class="qEle">
-                    <div class="queItem">
-                        <h3>How do I scan a QR code from a screenshot or photo gallery image?</h3>
-                       <i class="fa-solid fa-chevron-down" style="cursor: pointer"></i>  <!-- down ward arrow from font awesomw -->
-                    </div>
-                    <p class="faqAnswer">Simply click the image upload or browse area, select the screenshot or photo from your local file directory, and our
-                    engine will read the pixel data using an off-screen canvas to decode the code automatically. There is no need to use a
-                    separate phone camera to scan a screen.</p>
-                </div>
-
             </div>
         </section>
     </section>
@@ -287,17 +276,17 @@
         <div class="footerContainer">
             <div class="footerBrand">
                 <img src="./WOMEN'S HARVESTS.jpg" alt="logo" srcset="" width="100" height="100">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae eligendi ipsa cum suscipit unde nobis, consectetur eius iusto qui nihil vero repellendus cupiditate soluta.</p>
+                <p>There is no need to download an app. Scan any QR code or barcode instantly using your camera or by uploading an image. Simple, Private, and 100% free.</p>
             </div>
 
             <div class="footInner">
                 <!-- section container -->
                 <div class="prodContainer">
-                        <h3>Our Services</h3>
+                        <h3>Quick Links</h3>
                     <div>
                     <ul>
-                            <li><a href="#">Scan from Image</a></li>
-                            <li><a href="#">Generate QR Code</a></li>
+                            <li><a href="#scanFromImage">Scan from Image</a></li>
+                            <li><a href="/generate.html">Generate QR Code</a></li>
                             <li><a href="#">Bulk Scanner</a></li>
                         </ul>
                     </div>
@@ -319,7 +308,7 @@
 
                             <div class="contInner">
                                 <i class="fa-solid fa-phone"></i> <!--  generate icon form font awesome -->
-                                <li>0558674945</li>
+                                <li>+233 595274897</li>
                             </div>
                             
                         
@@ -347,7 +336,7 @@
             <ul>
                 <li> <a href="cookie.html">Cookie Settings</a></li>
                 <li> <a href="privacy.html">Privacy Policy</a></li>
-                <li> <a href="temrm.html">Terms </a></li>
+                <li> <a href="terms.html">Terms</a></li>
             </ul>
             <div class="socialMediaContainer">
                 <ul>

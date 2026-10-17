@@ -1,4 +1,18 @@
 
+try {
+    const root = document.querySelector(".root");
+    const rootLink = `http://127.0.0.1:5500/`;
+
+    root.addEventListener("click", () => {
+        window.location.href = rootLink
+    })
+    
+} catch (error) {
+    console.log("The error happen at ", error);
+}
+
+//root.appendChild(link);
+
 // Select all the chevron icons inside your FAQ items
 const icons = document.querySelectorAll('.queItem i');
 const questions = document.querySelectorAll('.queItem h3');
@@ -70,20 +84,23 @@ async function initCameraOnLoad() {
             video: { 
                 facingMode: { exact: "environment" } // Use "environment" if you are building a rear-facing QR scanner
             }, 
-            audio: false 
+            audio: false, 
+            torch: true
         });
         
         // Assign the stream to your video element
         videoElement.srcObject = stream;
+        const track = stream.getVideoTracks()[0];
         
         // Correctly fetch the button element and update its text
         const stopCamBtn = document.querySelector(".startCamBtn");
         if (stopCamBtn) {
-            stopCamBtn.textContent = "Stop Camera";
-            
-            // Remove any old listener just in case, then attach the stop function
-            //stopCamBtn.removeEventListener("click", stopCamera);
-            stopCamBtn.addEventListener("click", stopCamera);
+            const btn = document.querySelector(".flashlight i");
+            btn.addEventListener("click", function(){
+                track.applyConstraints({
+                    advanced: [{torch: true}]
+                })
+            })
         }
 
 
@@ -226,8 +243,8 @@ function scanQRCode(){
 }
 
 
-startCamBtn.addEventListener('click', initCameraOnLoad);
-stopCamBtn.addEventListener('click', stopCamera);
+//startCamBtn.addEventListener('click', initCameraOnLoad);
+//stopCamBtn.addEventListener('click', stopCamera);
 
 
 // try {
@@ -533,8 +550,7 @@ try {
 // start flashlight when the camera is working
 try {
     const flashlight = document.querySelector(".flashlight");
-
-    flashlight.addEventListener("click", startLight);
+    
 
 } catch (error) {
     
@@ -544,8 +560,17 @@ try {
     const date = new Date();
     const fYear = date.getFullYear();
 
-    const year = document.querySelector(".year").textContent = `© ${fYear} scanQr.com`
+    document.querySelector(".year").textContent = `© ${fYear} scanqr.com`;
 } catch (error) {
     
 }
 
+try {
+    const themeBtn = document.querySelector(".themeBtn");
+    themeBtn.addEventListener("click", function(){
+        console.log(themeBtn);
+    })
+
+} catch (error) {
+    
+}
