@@ -35,9 +35,273 @@
     
 }
 
+/* THIS IS FOR DARK THEME SECTION */
+[data-theme="dark"]{
+   /* The slider */
+    .slider {
+        background-color: var(--thinBlack);
+        border: 1px solid var(--thinWhite);
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: var(--secondaryColor);
+        border: 1px solid var(--thinWhite);
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px var(--secondaryColor);
+    }
+
+    html {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        transition: 0.5s ease;
+    }
+    
+    /* THIS IS FOR xIcon SECTION (ICON FORM FONTAWESOME) */
+    .modal {
+        background-color: var(--thinBlack);
+            
+    }
+    .modal p {
+        color: var(--flatWhite);
+            
+    }
+
+    .xIcon i{
+        color: var(--thinWhite);
+        transition: 0.2s ease-in-out background-color;
+
+    }
+
+    .xBtn i:hover{ 
+        background-color: #FF0101;
+        transition: 0.2s ease-in-out background-color;
+
+    }
+
+    .landingHero{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+    }
+
+    .landingHero h1{
+        color: var(--primaryColor);
+    }
+
+    .landingHero p{
+        color: var(--thinWhite);
+    }
+
+    body {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        transition: 0.5s ease;
+    }
+
+    header {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+    }
+
+    .capContainer {
+        box-shadow: var(--box-shadow);
+        background-color: #121315;
+    }
+
+    .capContainer .capture {
+        border: 1px solid var(--thinWhite);
+    }
+
+    .capContainer .flashlight i {
+        border-color: var(--thinWhite);
+        color: var(--primaryColor);
+    }
+
+    .capContainer .previewBox {
+        color: var(--primaryColor);
+    }
+
+    .featureContainer h1 {
+        color: var(--primaryColor);
+
+    }
+    .featureContainer .featureInner .featureEle {
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item {
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item h3{
+        color: var(--primaryColor);
+
+    }
+
+    .featureContainer .featureInner .featureEle .item p{
+        color: var(--thinWhite);
+
+    }
+
+    .howContainer{
+        background-color: var(--svgColorOverlay);
+    }
+
+    .howContainer .howEle h1,
+    .howContainer .howEle h3{
+        color: var(--primaryColor);
+    }
+
+    .howContainer .howEle p{
+        color: var(--thinWhite);
+    }
+
+    .howContainer .howEle ul li{
+        color: var(--thinWhite);
+    }
+
+    .howContainer .howInner figure{
+        background-color: var(--primaryColor);
+        border-color: var(--secondaryColor);
+    }
+
+    .howContainer{
+        color: var(--primaryColor);
+    }
+
+    .queContainer h1{
+        color: var(--primaryColor);
+    }
+    .queContainer .queItem{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+    }
+
+    .queContainer .queItem h3{
+        color: var(--primaryColor);
+    }
+
+    .queContainer .faqAnswer{
+        color: var(--thinWhite);
+    }
+
+    /* footer section */
+    .footer {
+        border-top: 1px solid var(--thinBlack);
+        border-left: 1px solid var(--thinBlack);
+        border-right: 1px solid var(--thinBlack);
+        border-bottom: 1px solid var(--thinBlack);
+    }
+
+    .footer h3{
+        color: var(--primaryColor);
+    }
+
+    .footer .footerContainer p{
+        color:var(--thinWhite);
+    }
+
+    .footer .footerContainer .prodContainer li,
+    .footer .footerContainer .prodContainer p,
+    .footer .footerContainer .prodContainer a{
+        color: var(--thinWhite);
+    }
+
+    .footer .footerContainer li,
+    .footer .footerDescription li a,
+    .footer .contInner a{
+        color: var(--thinWhite);
+    }
+    .footer a{
+        color: var(--thinWhite);
+    }
+
+
+    /* THIS IS FOR CONTACT PAGE THEME STYLING */
+    .formContainer h1,
+    .contactHero h1{
+        color: var(--primaryColor);
+    }
+
+
+    .formContainer input,
+    .formContainer textarea{
+        background-color: var(--thinBlack);
+        color: var(--primaryColor);
+        border-color: var(--thinWhite);
+    }
+    .formContainer .submitBtn{
+        border: none;
+    }
+
+    .formContainer p,
+    .contactHero p{
+        color: var(--thinWhite);
+    }
+
+    .quickDetailContainer .quickHeading h3{
+        color: var(--primaryColor);
+    }
+
+    .quickDetailContainer p,
+    .quickDetailContainer li{
+        color: var(--primaryColor);
+    }
+
+    .footerContact div ul a{
+        color: var(--thinWhite);
+    }
+    /* it handle the dark theme for privacy */
+    .privacyContainer h2,
+    .privacyContainer h3,
+    .privacyContent .privacyHero h1 {
+        color: var(--primaryColor);
+    }
+
+    .privacyContainer .privacyContent p,
+    .privacyContainer .privacyContent li,
+    .privacyContainer .privacyContent i {
+        color: var(--thinWhite) !important;
+    }
+
+    .footerContact ul li a {
+        color: var(--thinWhite) !important;
+    }
+
+    .footerContact ul li a:hover {
+        color: var(--highlight      ) !important;
+    }
+
+
+}
+
 .noDisplay{
     display: none;
 }
+
+/* THIS IS FOR NO SCROLL WINDOW SECTION */
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
+
+
 img{
     display: block;
 }
@@ -222,6 +486,9 @@ input:checked + .slider:before {
     height: 30px;
     place-content: center;
     text-align: center;
+    border-radius: 4px;
+    transition: 0.5s ease-in-out background-color, 0.3s ease-in color;
+
 }
 
 .addUrlBtn i:hover,
@@ -233,6 +500,8 @@ input:checked + .slider:before {
 .xBtn i:hover{ 
     background-color: #FF0101;
     color: var(--primaryColor);
+    transition: 0.5s ease-in-out background-color, 0.3s ease-in color;
+
 }
 
 
@@ -1378,239 +1647,6 @@ footer .footerDescription .socialMediaContainer i:hover{
 
 @media screen and (min-width: 1400px) {
 
-}
-
-@media (prefers-color-scheme: light) {
-
-    /* The slider */
-    .slider {
-        background-color: var(--primaryColor);
-        border: 1px solid var(--thinWhite);
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked+.slider {
-        background-color: var(--secondaryColor);
-        border: 1px solid var(--thinWhite);
-    }
-
-    input:focus+.slider {
-        box-shadow: 0 0 1px var(--secondaryColor);
-    }
-
-    html {
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-        transition: 0.5s ease;
-    }
-
-
-    .landingHero{
-        background-color: var(--thinBlack);
-        color: var(--primaryColor);
-    }
-
-    .landingHero h1{
-        color: var(--primaryColor);
-    }
-
-    .landingHero p{
-        color: var(--thinWhite);
-    }
-
-    body {
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-        transition: 0.5s ease;
-    }
-
-    header {
-        background-color: var(--secondaryColor);
-        color: var(--primaryColor);
-    }
-
-    .capContainer {
-        box-shadow: var(--box-shadow);
-        background-color: #121315;
-    }
-
-    .capContainer .capture {
-        border: 1px solid var(--thinWhite);
-    }
-
-    .capContainer .flashlight i {
-        border-color: var(--thinWhite);
-        color: var(--primaryColor);
-    }
-
-    .capContainer .previewBox {
-        color: var(--primaryColor);
-    }
-
-    .featureContainer h1 {
-        color: var(--primaryColor);
-
-    }
-    .featureContainer .featureInner .featureEle {
-        color: var(--primaryColor);
-
-    }
-
-    .featureContainer .featureInner .featureEle .item {
-        background-color: var(--thinBlack);
-        color: var(--primaryColor);
-
-    }
-
-    .featureContainer .featureInner .featureEle .item h3{
-        color: var(--primaryColor);
-
-    }
-
-    .featureContainer .featureInner .featureEle .item p{
-        color: var(--thinWhite);
-
-    }
-
-    .howContainer{
-        background-color: var(--svgColorOverlay);
-    }
-
-    .howContainer .howEle h1,
-    .howContainer .howEle h3{
-        color: var(--primaryColor);
-    }
-
-    .howContainer .howEle p{
-        color: var(--thinWhite);
-    }
-
-    .howContainer .howEle ul li{
-        color: var(--thinWhite);
-    }
-
-    .howContainer .howInner figure{
-        background-color: var(--primaryColor);
-        border-color: var(--secondaryColor);
-    }
-
-    .howContainer{
-        color: var(--primaryColor);
-    }
-
-    .queContainer h1{
-        color: var(--primaryColor);
-    }
-    .queContainer .queItem{
-        background-color: var(--thinBlack);
-        color: var(--primaryColor);
-    }
-
-    .queContainer .queItem h3{
-        color: var(--primaryColor);
-    }
-
-    .queContainer .faqAnswer{
-        color: var(--thinWhite);
-    }
-
-    /* footer section */
-    .footer {
-        border-top: 1px solid var(--thinBlack);
-        border-left: 1px solid var(--thinBlack);
-        border-right: 1px solid var(--thinBlack);
-        border-bottom: 1px solid var(--thinBlack);
-    }
-
-    .footer h3{
-        color: var(--primaryColor);
-    }
-
-    .footer .footerContainer p{
-        color:var(--thinWhite);
-    }
-
-    .footer .footerContainer .prodContainer li,
-    .footer .footerContainer .prodContainer p,
-    .footer .footerContainer .prodContainer a{
-        color: var(--thinWhite);
-    }
-
-    .footer .footerContainer li,
-    .footer .footerDescription li a,
-    .footer .contInner a{
-        color: var(--thinWhite);
-    }
-    .footer a{
-        color: var(--thinWhite);
-    }
-
-
-    /* THIS IS FOR CONTACT PAGE THEME STYLING */
-    .formContainer h1,
-    .contactHero h1{
-        color: var(--primaryColor);
-    }
-
-
-    .formContainer input,
-    .formContainer textarea{
-        background-color: var(--thinBlack);
-        color: var(--primaryColor);
-        border-color: var(--thinWhite);
-    }
-    .formContainer .submitBtn{
-        border: none;
-    }
-
-    .formContainer p,
-    .contactHero p{
-        color: var(--thinWhite);
-    }
-
-    .quickDetailContainer .quickHeading h3{
-        color: var(--primaryColor);
-    }
-
-    .quickDetailContainer p,
-    .quickDetailContainer li{
-        color: var(--primaryColor);
-    }
-
-    .footerContact div ul a{
-        color: var(--thinWhite);
-    }
-    /* it handle the dark theme for privacy */
-    .privacyContainer h2,
-    .privacyContainer h3,
-    .privacyContent .privacyHero h1 {
-        color: var(--primaryColor);
-    }
-
-    .privacyContainer .privacyContent p,
-    .privacyContainer .privacyContent li,
-    .privacyContainer .privacyContent i {
-        color: var(--thinWhite) !important;
-    }
-
-    .footerContact ul li a {
-        color: var(--thinWhite) !important;
-    }
-
-    .footerContact ul li a:hover {
-        color: var(--highlight      ) !important;
-    }
 }
 
 

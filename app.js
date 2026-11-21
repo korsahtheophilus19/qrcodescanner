@@ -80,29 +80,18 @@ async function initCameraOnLoad() {
 
     try {
         // Request camera permissions instantly
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-            video: { 
-                facingMode: { exact: "environment" } // Use "environment" if you are building a rear-facing QR scanner
-            }, 
-            audio: false, 
-            torch: true
+        const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+        const preferredFacingMode = isMobile ? "environment" : "user";
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: preferredFacingMode }},
+            audio: false
         });
         
         // Assign the stream to your video element
         videoElement.srcObject = stream;
         const track = stream.getVideoTracks()[0];
         
-        // Correctly fetch the button element and update its text
-        const stopCamBtn = document.querySelector(".startCamBtn");
-        if (stopCamBtn) {
-            const btn = document.querySelector(".flashlight i");
-            btn.addEventListener("click", function(){
-                track.applyConstraints({
-                    advanced: [{torch: true}]
-                })
-            })
-        }
-
 
         // Kick off the scanning loop
         animationFrameId = requestAnimationFrame(scanQRCode);
@@ -200,7 +189,6 @@ function scanQRCode(){
         // 4. IMPORTANT: Append it so it sits ON TOP of the content
         document.body.appendChild(modal);
 
-                                
         if (false) {
             document.getElementById("closeBtn").addEventListener("click", () =>{
             modal.classList.remove("noDisplay");
@@ -210,30 +198,36 @@ function scanQRCode(){
             modal.classList.add("noDisplay");
         })}
         } else {
-            //alert("No QR code found in this image. Try a clearer picture!");
-            const modal = document.createElement('div');
+            // //alert("No QR code found in this image. Try a clearer picture!");
+            // const modal = document.createElement('div');
 
-            // 2. Add your ID and Class
-            modal.id = "myModal";
-            modal.className = "modal"; // 'active' to make it visible
+            // // 2. Add your ID and Class
+            // modal.id = "myModal";
+            // modal.className = "modal"; // 'active' to make it visible
             
-            // 3. Add the text/content
-            modal.innerHTML = `
-                <div>
-                    <div class="xIcon">
-                        <div class="xBtn" id="closeBtn"><i class="fa-solid fa-x"></i></div>
-                    </div>
-                    <div class="modalContainer">
-                        <p>No QR code found in this image. Try a clearer picture!</p>
-                    </div
-                </div>
-            `;
+            // // 3. Add the text/content
+            // modal.innerHTML = `
+            //     <div>
+            //         <div class="xIcon">
+            //             <div class="xBtn" id="closeBtn"><i class="fa-solid fa-x"></i></div>
+            //         </div>
+            //         <div class="modalContainer">
+            //             <p>No QR code found in this image. Try a clearer picture!</p>
+            //         </div
+            //     </div>
+            // `;
 
-            // 4. IMPORTANT: Append it so it sits ON TOP of the content
+            // // 4. IMPORTANT: Append it so it sits ON TOP of the content
             
-            document.body.appendChild(modal);
+            // document.body.appendChild(modal);
             
-            imageBtn.style.display = "block"; // Bring back button if it failed
+            // imageBtn.style.display = "block"; // Bring back button if it failed
+
+            // // THIS IS FOR GET WINDOW OR DOCUMENT 
+            // const windowBody = document.documentElement.classList.add("no-scroll"); 
+            // document.body.classList.add("no-scroll");
+            
+            window.alert("Try a clearer picture");
         }
     };
         img.src = e.target.result;
@@ -243,8 +237,8 @@ function scanQRCode(){
 }
 
 
-//startCamBtn.addEventListener('click', initCameraOnLoad);
-//stopCamBtn.addEventListener('click', stopCamera);
+startCamBtn.addEventListener('click', initCameraOnLoad);
+stopCamBtn.addEventListener('click', stopCamera);
 
 
 // try {
@@ -567,9 +561,26 @@ try {
 
 try {
     const themeBtn = document.querySelector(".themeBtn");
-    themeBtn.addEventListener("click", function(){
-        console.log(themeBtn);
-    })
+    const rootElement = document.documentElement;
+
+    // 1. Load saved theme on page load (if any)
+    const savedTheme = localStorage.getItem("data-theme");
+
+    if (savedTheme) {
+        rootElement.setAttribute("data-theme", savedTheme);
+    }
+
+    
+    // 2. Toggle theme on button click
+    themeBtn.addEventListener("click", () => {
+        const currentTheme = rootElement.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        rootElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        console.log(localStorage);
+    });
 
 } catch (error) {
     
